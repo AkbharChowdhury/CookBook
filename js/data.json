@@ -1,0 +1,31 @@
+{
+    "_comment": "this file is used to generate dynamic select menu for a small number of options",
+    "contact": [
+        {
+            "value": "",
+            "option": "Please Select"
+        },
+        {
+            "value": "Enquiry",
+            "option": "Enquiry"
+        }
+    ],
+    "mail": [
+        {
+            "value": "",
+            "option": "Please Select"
+        },
+        {
+            "value": "Update",
+            "option": "Update"
+        },
+        {
+            "value": "Offers",
+            "option": "Offers"
+        },
+        {
+            "value": "Other",
+            "option": "Other"
+        }
+    ]
+}

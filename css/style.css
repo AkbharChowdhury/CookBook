@@ -1,0 +1,324 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,700&display=swap');
+
+html, body {
+    height: 100%;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+    color: #222;
+}
+.progress {
+    height: 20px;
+}
+/* Autocomplete hover colour */
+.ui-menu .ui-menu-item-wrapper:hover, .ui-menu .ui-menu-item-wrapper.ui-state-active {
+    color: #303030;
+    background-color: red;
+    border: #fff 1px solid;
+}
+/* min-height required for sticky footer */
+body {
+    min-height: 100vh !important;
+}
+/* js-disabled class is used when javascript is disabled */
+.js-disabled {
+    display: none;
+}
+/* Error class border */
+.error {
+    border: 2px solid red !important;
+}
+
+/* About page */
+.about {
+    font-size: 18px;
+}
+
+/* Ordered list styling */
+/************************************************************ */
+.ordered-list {
+    list-style: none;
+    counter-reset: item;
+}
+
+.ordered-list li {
+    counter-increment: item;
+    margin-bottom: 5px;
+}
+
+.ordered-list li:before {
+    margin-right: 10px;
+    content: counter(item);
+    background: #0d2033 !important;
+    border-radius: 100%;
+    color: white;
+    width: 1.2em;
+    text-align: center;
+    display: inline-block;
+}
+
+/************************************************************ */
+/* Horizontal rule styling */
+/* For landing page and hero image */
+/************************************************************ */
+.hr-landing {
+    border-top: 3px solid #fff;
+    width: 75%;
+    height: 2px;
+    margin-top: .3rem;
+    margin-bottom: 1rem;
+}
+
+/* Custom elements */
+/* For title and headings */
+.custom-line {
+    border-top: 3px solid #0275d8;
+    width: 100%;
+    height: 2px;
+    margin-top: .3rem;
+    margin-bottom: 1rem;
+}
+
+/* Ingredient List */
+.custom-line-list {
+    border-top: 1px dotted gray;
+    width: 100%;
+    height: 2px;
+    margin-top: .3rem;
+    margin-bottom: 1rem;
+}
+
+/* email hyperlink */
+.custom-link {
+    all: unset;
+    text-decoration: none !important;
+    cursor: pointer;
+    color: inherit !important;
+}
+
+/************************************************************ */
+/* button style */
+.custom-btn {
+    border-width: medium;
+    padding: .6rem 1.3rem;
+    font-weight: bold;
+}
+
+/************************************************************ */
+/*  hover colour link*/
+.navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover {
+    color: yellow;
+}
+
+/* navbar*/
+.navbar {
+    padding: .8rem;
+}
+
+.navbar-nav li {
+    padding-right: 20px;
+}
+
+.nav-brand {
+    font-weight: bold;
+}
+
+.nav-link, .navbar-text {
+    font-size: 1.1em !important;
+}
+
+.padding {
+    padding-bottom: 2rem;
+}
+
+/* Scrolling Effect */
+#home {
+    background: url("../img/background.jpg") no-repeat center center fixed;
+    display: table;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+    box-shadow: inset 0 0 0 100vw rgba(0, 0, 0, 0.3);
+
+}
+
+.landing-text {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.landing-text h1 {
+    font-size: 500%;
+    font-weight: 700;
+    text-shadow: 1px 1px 15px #000;
+}
+
+.landing-text h3 {
+    font-size: 300%;
+    font-weight: 500;
+    text-shadow: 1px 1px 10px #000;
+    padding-bottom: 1rem;
+}
+
+/* footer styling */
+
+footer {
+    /* sticky footer */
+    position: sticky;
+    top: 100%;
+}
+
+footer a {
+    color: white;
+}
+
+footer a:hover {
+    color: white;
+}
+
+/* Nav tabs properties #343a40*/
+.nav-tabs .nav-link.active {
+    color: #f8f9fa;
+    background-color: #343a40;
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+
+.nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+}
+
+.nav-tabs a {
+    /* hyperlink colors */
+    color: #343a40;
+    text-decoration: none;
+}
+
+.nav-tabs a:hover {
+    /* hover colors*/
+    color: #0d2033;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+/* Image hover effect */
+.inner {
+    overflow: hidden;
+}
+
+.inner img {
+    transition: all 1.5s ease;
+}
+
+.inner:hover img {
+    transform: scale(1.5);
+}
+
+/* Recipes that are displayed on the homepage */
+.recipe-image {
+    height: 300px;
+    object-fit: cover;
+}
+
+/* Recipes that are displayed on recipe details page */
+.recipe-detail-img {
+    object-fit: cover;
+}
+
+/* Recipe image on edit recipe form styling */
+
+/*Image title */
+.title {
+    color: #1a1a1a;
+    text-align: center;
+    margin-bottom: 10px
+}
+
+.content {
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+    margin: auto;
+    overflow: hidden
+}
+
+.content .content-overlay {
+    background: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    height: 100%;
+    /*height of image */
+    width: 100%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 0;
+    -webkit-transition: all 0.4s ease-in-out 0s;
+    -moz-transition: all 0.4s ease-in-out 0s;
+    transition: all 0.4s ease-in-out 0s
+}
+
+.content:hover .content-overlay {
+    opacity: 1
+}
+
+.content-image {
+    width: 100%
+}
+
+.edit-recipe-img {
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 5px
+}
+
+.content-details {
+    position: absolute;
+    text-align: center;
+    padding-left: 1em;
+    padding-right: 1em;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    -moz-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s
+}
+
+.content:hover .content-details {
+    top: 50%;
+    left: 50%;
+    opacity: 1
+}
+
+.content-details h3 {
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5em;
+    text-transform: uppercase
+}
+
+.content-details p {
+    color: #fff;
+    font-size: 0.8em
+}
+
+.fadeIn-bottom {
+    top: 80%
+}
+
+/* Recipe image on edit recipe form styling ends here */
+
+/* icon colours */
+.fa-check-circle {
+    color: green;
+}
+
+.fa-times {
+    color: red;
+}
