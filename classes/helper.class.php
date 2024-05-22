@@ -1,6 +1,10 @@
 <?php
 
 final class Helper {
+    public static function rootDirectory($file ) {
+        return dirname($file) .'/../';
+
+    }
     /* Notes
      * self:: is used to access static methods and fields rather than using $this keyword as static classes cannot be instantiated. 
      * in this class we only want to get methods without instantiating the class itself.

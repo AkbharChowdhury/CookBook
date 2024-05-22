@@ -7,15 +7,20 @@
  * protected access modifier method can only be accessed within the class and by classes derived from that class
  */
  
+
+ function rootDirectory(){
+    return dirname(__FILE__) .'/../';
+}
+use Dotenv\Dotenv as Dotenv;
  abstract class Database {
 
     protected $con;
     protected $data = array();
-
-
+    
     private function loadENV(){
-        require_once rootDirectory().'/vendor/autoload.php';
-        $dotenv = Dotenv::createImmutable(rootDirectory());
+        $rootDir = Helper::rootDirectory(__FILE__);
+        require_once $rootDir .'/vendor/autoload.php';
+        $dotenv = Dotenv::createImmutable($rootDir);
         $dotenv->load();
     }
 
