@@ -25,7 +25,7 @@ require_once 'templates/header.php'; ?>
     <!-- Recipe Item Row -->
     <div class="row padding">
         <div class="col-md-8">
-            <img class="img-fluid card-img-top recipe-detail-img" src="<?=$row['image']?>" alt="<?=Helper::html(RECIPE_INFO['alt'])?>">
+            <img class="img-fluid card-img-top recipe-detail-img" src="<?=Helper::image($row['image'])?>" alt="<?=Helper::html(RECIPE_INFO['alt'])?>">
         </div>
         <div class="col-md-4">
             <div class="card border-dark mb-3" style="max-width: 18rem;">

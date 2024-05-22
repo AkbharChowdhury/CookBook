@@ -2,7 +2,6 @@
 $current_page = 'index';
 $page_title = 'Home - Cookbook - Get cooking today';
 require_once 'templates/header.php';
-// search logic
 require_once 'includes/search.inc.php';
 ?>
 
@@ -109,7 +108,7 @@ require_once 'includes/search.inc.php';
 						<div class="card shadow border-0 h-100">
 							<div class="inner">
 								<a href="recipe_details_page.php?recipe_selected_id=<?= $row['recipe_id'] ?>">
-									<img class="card-img-top recipe-image" src="<?= $row['image'] ?>" alt="<?= Helper::html($row['alt']); ?>" title="All images are used for illustrative purposes. Results may vary">
+									<img class="card-img-top recipe-image" src="<?=Helper::image($row['image'])?>" alt="<?= Helper::html($row['alt']); ?>" title="All images are used for illustrative purposes. Results may vary">
 								</a>
 							</div>
 							<div class="card-body">

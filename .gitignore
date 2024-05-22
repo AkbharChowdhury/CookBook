@@ -1,0 +1,7 @@
+*.sql
+vendor/
+*.json
+*.lock
+*.txt
+*.env
+.DS_Store
