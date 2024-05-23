@@ -42,7 +42,7 @@ require_once 'includes/search.inc.php';
 				<h1 class="text-primary p-2">Recipe Search</h1>
 				<hr class="custom-line">
 				<!-- Search filter -->
-				<form action="" method="get" autocomplete="off">
+				<form action="" autocomplete="off">
 					<!-- Search by Author-->
 					<div class="form-row">
 						<div class="form-group col-md-6">
@@ -50,7 +50,7 @@ require_once 'includes/search.inc.php';
 							<select id="author_id" name="author_id" class="custom-select">
 								<option value="">Any Author</option>
 								<?php foreach ($recipe->getAuthor() as $row) : ?>
-									<option value="<?= $row['author_id'] ?>" <?php if ($row['author_id'] === $selected_author) echo 'selected'; ?>><?= $row['author_name'] ?></option>
+									<option value="<?= $row['author_id'] ?>" <?php if ($row['author_id'] == $selected_author) echo 'selected'; ?>><?= $row['author_name'] ?></option>
 								<?php endforeach; ?>
 							</select>
 						</div>
@@ -61,7 +61,7 @@ require_once 'includes/search.inc.php';
 							<select id="category_id" name="category_id" class="custom-select">
 								<option value="">Any Category</option>
 								<?php foreach ($recipe->getCategory() as $row) : ?>
-									<option value="<?= $row['category_id'] ?>" <?php if ($row['category_id'] === $selected_category) echo 'selected'; ?>><?= $row['category_name'] ?></option>
+									<option value="<?= $row['category_id'] ?>" <?php if ($row['category_id'] == $selected_category) echo 'selected'; ?>><?= $row['category_name'] ?></option>
 								<?php endforeach; ?>
 							</select>
 						</div>
@@ -73,7 +73,7 @@ require_once 'includes/search.inc.php';
 							<input type="search" class="form-control" placeholder="Search recipe" id="search" name="s" value="<?= htmlspecialchars($_GET['s'] ?? null)  ?>" autofocus>
 							<div class="input-group-append">
 								<!--Search button-->
-								<button type="submit" class="btn btn-secondary" name="search"><i class="fa fa-search"></i></button>
+								<button type="submit" class="btn btn-secondary" name="search"><i class="fa fa-search"></i> </button>
 							</div>
 						</div>
 					</div>

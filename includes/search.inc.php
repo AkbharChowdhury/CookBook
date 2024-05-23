@@ -22,8 +22,10 @@ $search_term = !empty($search_term) ? $recipe->removeFullStopEnd($search_term) :
 /* ----------------------- Select drop down -------------------------------- */
 // get selected author 
 $selected_author = $_GET['author_id'] ?? '';
+
 // get selected category 
 $selected_category = $_GET['category_id'] ?? '';
+
 /* -------------------------------------------------------------------------- */
 
 // store session variables for recipe details page - home link on breadcrumb menu
@@ -42,7 +44,6 @@ $recipe->setPageNumber($page)
 // query the recipes - search results
 $stmt = $recipe->fetchRecipes();
 
-// get current php file  
 $current_file = htmlspecialchars($_SERVER['PHP_SELF']);
 // specify the page where paging is used
 $page_url = "{$current_file}?s={$search_term}&";

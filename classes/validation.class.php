@@ -11,8 +11,18 @@ abstract class Validation {
 
     protected $data;
     protected $additionalChecks = true;
-    protected $errors = array();
+    protected $errors = [];
+    
 
+
+    private function isValidName($name) {
+        return boolval(preg_match('/^[a-zA-Z]+$/', $name));
+    
+     }
+     private function nameError($name) {
+        return "$name cannot contain spaces, numbers or special characters";
+    
+     }
 
 
     public function setAdditionalChecks($value){
@@ -24,32 +34,33 @@ abstract class Validation {
     // *********************************** register user
     final protected function firstName(){
         if (array_key_exists('firstname', $this->data)) {
-            // getting post values and validating them
-            $firstname = trim($this->data['firstname']);
+            $val = trim($this->data['firstname']);
+            $key = 'firstname';
 
-            if (empty($firstname)) {
-                $this->addError('firstname', 'firstname is required');
+            if (empty($val)) {
+                $this->addError($key, 'firstname is required');
                 return;
             }
 
-            if (!preg_match('/^[a-zA-Z]+$/', $firstname)) {
-                $this->addError('firstname', 'firstname cannot contain spaces, numbers or special characters');
+            if (!$this->isValidName($val)) {
+                $this->addError($key, $this->nameError($val));
             }
         }
     }
 
     final protected function lastName(){
         if (array_key_exists('lastname', $this->data)) {
-            // getting post values and validating them
-            $lastname = trim($this->data['lastname']);
+            $val = trim($this->data['lastname']);
+            $key = 'lastname';
 
-            if (empty($lastname)) {
-                $this->addError('lastname', 'lastname is required');
+
+            if (empty($val)) {
+                $this->addError($key, 'lastname is required');
                 return;
             }
 
-            if (!preg_match('/^[a-zA-Z]+$/', $lastname)) {
-                $this->addError('lastname', 'lastname cannot contain spaces, numbers or special characters');
+            if (!$this->isValidName($val)) {
+                $this->addError($key, $this->nameError($val));
             }
         }
     }
@@ -118,7 +129,7 @@ abstract class Validation {
                 $this->addError('verification_code', 'verification code is required');
                 return;
             }
-            if ($_POST["verification_code"] != $_SESSION["verification_code"] || $_SESSION["verification_code"] === '') {
+            if ($_POST["verification_code"] != $_SESSION["verification_code"] || empty($_SESSION["verification_code"])) {
                 $this->addError('verification_code', 'Incorrect verification code');
 
 

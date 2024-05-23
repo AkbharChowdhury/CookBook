@@ -14,7 +14,8 @@ require_once HEADER_PATH;
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 		<!--font awesome -->
-		<script src="https://kit.fontawesome.com/af0beca0d3.js"></script>
+		<!-- <script src="https://kit.fontawesome.com/af0beca0d3.js"></script> -->
+    <script src="https://kit.fontawesome.com/c4893eb727.js" crossorigin="anonymous"></script>
 		<!-- Custom CSS -->
 		<link rel="stylesheet" href="<?=in_array($current_page, PAGES) ? 'css/style.css' : FILE_PATH['css']?>">
 
