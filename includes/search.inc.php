@@ -26,6 +26,8 @@ $selected_author = $_GET['author_id'] ?? '';
 // get selected category 
 $selected_category = $_GET['category_id'] ?? '';
 
+print_r($selected_category);
+
 /* -------------------------------------------------------------------------- */
 
 // store session variables for recipe details page - home link on breadcrumb menu

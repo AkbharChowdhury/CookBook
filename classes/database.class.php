@@ -6,16 +6,12 @@
  * abstract classes cannot be instantiated 
  * protected access modifier method can only be accessed within the class and by classes derived from that class
  */
- 
 
- function rootDirectory(){
-    return dirname(__FILE__) .'/../';
-}
 use Dotenv\Dotenv as Dotenv;
  abstract class Database {
 
     protected $con;
-    protected $data = array();
+    protected $data = [];
     
     private function loadENV(){
         $rootDir = Helper::rootDirectory(__FILE__);
@@ -45,7 +41,10 @@ use Dotenv\Dotenv as Dotenv;
         return $this;
     }
 
-    final public function getData(string $key){
+     /**
+      * @throws Exception
+      */
+     final public function getData(string $key){
         if (array_key_exists($key, $this->data)) {
             return $this->data[$key];
         }
@@ -54,7 +53,7 @@ use Dotenv\Dotenv as Dotenv;
     }
 
     final public function resetData(){
-        $this->data = array();
+        $this->data = [];
     }
 
 }

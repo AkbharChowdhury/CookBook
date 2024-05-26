@@ -3,7 +3,7 @@
 Breadcrumb::getInstanceRootDirectory($current_page, null, true)->createBreadCrumb();
 
 // get selected author 
-$selected_author = $$_POST['author_id'] ?? '';
+$selected_author = $_POST['author_id'] ?? '';
 $author = Author::getInstance(); // used for author dynamic dropdown menu
 
 // if the form has been submitted

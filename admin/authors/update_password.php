@@ -18,7 +18,7 @@ require_once '../adminIncludes/update_password.inc.php';
                         </div>
                         <div class="card-body">
                             <form action="" method="post" class="needs-validation" novalidate autocomplete="off">
-                                <input type="hidden" name="author_id" value="<?= AUTHOR_INFO['author_id'] ?>">
+                                <input type="hidden" name="author_id" value="<?= AUTHOR['author_id'] ?>">
 
                                 <div class="form-group">
                                     <label for="password">Set Password</label>

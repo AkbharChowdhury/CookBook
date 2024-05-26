@@ -43,7 +43,7 @@ if (isset($_GET['editRecipe'])) {
             'author_name' => $row['author_name'],
         ));
 
-        $selected_author = RECIPE_INFO['author_id'] ?? '';
+        $selected_author = RECIPE['author_id'] ?? '';
     }
 }
 

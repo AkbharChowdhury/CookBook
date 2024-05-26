@@ -4,45 +4,45 @@ require_once 'includes/class-autoload.php';
 require_once 'includes/recipe_details.inc.php';
 
 $current_page = 'recipe';
-$page_title = RECIPE_INFO['name'];
+$page_title = RECIPE['name'];
 require_once 'templates/header.php'; ?>
 
 <div class="container">
     <!-- breadcrumb -->
     <div class="pt-5">
-        <?php Helper::breadcrumb(Helper::html(RECIPE_INFO['name']), $_SESSION['author'], $_SESSION['category'], $_SESSION['search'], $_SESSION['page']) ?>
+        <?php Helper::breadcrumb(Helper::html(RECIPE['name']), $_SESSION['author'], $_SESSION['category'], $_SESSION['search'], $_SESSION['page']) ?>
     </div>
     <div class="row mt-3">
         <div class="col-md-12">
-            <h2><?=RECIPE_INFO['name']?></h2>
+            <h2><?=RECIPE['name']?></h2>
             <hr class="custom-line">
-            <p class="lead"><?=nl2br(RECIPE_INFO['description'])?> </p>
-            <p>By <strong><a class="custom-link" title="Email:<?=Helper::html(RECIPE_INFO['email'])?>" href="mailto:<?=Helper::html(RECIPE_INFO['email'])?>"><?=Helper::html(RECIPE_INFO['author'])?></a></strong></a></p>
+            <p class="lead"><?=nl2br(RECIPE['description'])?> </p>
+            <p>By <strong><a class="custom-link" title="Email:<?=Helper::html(RECIPE['email'])?>" href="mailto:<?=Helper::html(RECIPE['email'])?>"><?=Helper::html(RECIPE['author'])?></a></strong></a></p>
 
-            <p class="text-lead">Category: <strong><?=Helper::html(RECIPE_INFO['category_name'])?></strong></p>
+            <p class="text-lead">Category: <strong><?=Helper::html(RECIPE['category_name'])?></strong></p>
         </div>
     </div>
     <!-- Recipe Item Row -->
     <div class="row padding">
         <div class="col-md-8">
-            <img class="img-fluid card-img-top recipe-detail-img" src="<?=Helper::image($row['image'])?>" alt="<?=Helper::html(RECIPE_INFO['alt'])?>">
+            <img class="img-fluid card-img-top recipe-detail-img" src="<?=Helper::image(RECIPE['image'])?>" alt="<?=Helper::html(RECIPE['alt'])?>">
         </div>
         <div class="col-md-4">
             <div class="card border-dark mb-3" style="max-width: 18rem;">
                 <div class="card-header">Details</div>
                 <div class="card-body text-dark">
-                    <h5 class="card-title"><?=Helper::html(RECIPE_INFO['name'])?></h5>
+                    <h5 class="card-title"><?=Helper::html(RECIPE['name'])?></h5>
                     <p class="card-text">
-                        Prep: <?=Helper::formatTime(Helper::html(RECIPE_INFO['prep_time'])) ?><br>
+                        Prep: <?=Helper::formatTime(Helper::html(RECIPE['prep_time'])) ?><br>
                         <!-- Check if the cooking time is a number -->
-                        <?php if(is_numeric(Helper::html(RECIPE_INFO['cook_time']))):?>
-                        Cook: <?=Helper::formatTime(Helper::html(RECIPE_INFO['cook_time'])) ?><br>
-                        Total: <?=Helper::formatTime(Helper::html(RECIPE_INFO['total_cooking_time'])) ?><br>
+                        <?php if(is_numeric(Helper::html(RECIPE['cook_time']))):?>
+                        Cook: <?=Helper::formatTime(Helper::html(RECIPE['cook_time'])) ?><br>
+                        Total: <?=Helper::formatTime(Helper::html(RECIPE['total_cooking_time'])) ?><br>
                         <?php else: ?>
                             <!-- display default string literal (No cooking time required) -->
-                            <?=Helper::html(RECIPE_INFO['cook_time'])?>
+                            <?=Helper::html(RECIPE['cook_time'])?>
                         <?php endif?>
-                        Servings: <?=Helper::html(RECIPE_INFO['servings'])?><br>
+                        Servings: <?=Helper::html(RECIPE['servings'])?><br>
                 </p>
                 </div>
             </div>

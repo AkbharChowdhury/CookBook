@@ -16,16 +16,16 @@ require_once '../adminIncludes/delete.php';
 			<h3 class="mb-0">Edit Recipe</h3>
 		</div>
 		<!-- Recipe image section -->
-		<?php if (!is_null(RECIPE_INFO['image'])) : ?>
+		<?php if (!is_null(RECIPE['image'])) : ?>
 			<section class=" pt-2" id="recipe-image">
 				<div class="row">
 					<div class="col-md-4">
 						<div class="content">
 							<div class="content-overlay"></div>
-							<img class="img-fluid content-image  edit-recipe-img img-thumbnail" src="<?= $row['image'] ?>" alt="<?= RECIPE_INFO['alt'] ?>">
+							<img class="img-fluid content-image  edit-recipe-img img-thumbnail" src="<?= $row['image'] ?>" alt="<?= RECIPE['alt'] ?>">
 							<div class="content-details fadeIn-bottom">
-								<h3 class="content-title"><?= RECIPE_INFO['name'] ?></h3>
-								<p class="content-text"><i class="fas fa-utensils"></i> <?= RECIPE_INFO['category_name'] ?></p>
+								<h3 class="content-title"><?= RECIPE['name'] ?></h3>
+								<p class="content-text"><i class="fas fa-utensils"></i> <?= RECIPE['category_name'] ?></p>
 							</div>
 						</div>
 						<!--.content (Image) -->
@@ -39,12 +39,12 @@ require_once '../adminIncludes/delete.php';
 		<?php endif; ?>
 		<div class="card-body">
 			<form action="" method="post" class="needs-validation" novalidate autocomplete="off">
-				<input type="hidden" name="recipe_id" value="<?= RECIPE_INFO['recipe_id'] ?>">
+				<input type="hidden" name="recipe_id" value="<?= RECIPE['recipe_id'] ?>">
 				<h1 class="text-primary p-2">Recipe Details</h1>
 				<hr class="custom-line">
 				<div class="form-group">
 					<label for="recipe_name">Recipe Name</label>
-					<input type="text" class="form-control" name="recipe_name" id="recipe_name" maxlength="100" placeholder="Enter a recipe" value="<?= Helper::html($_POST['recipe_name'] ?? RECIPE_INFO['name']); ?>" required autofocus>
+					<input type="text" class="form-control" name="recipe_name" id="recipe_name" maxlength="100" placeholder="Enter a recipe" value="<?= Helper::html($_POST['recipe_name'] ?? RECIPE['name']); ?>" required autofocus>
 					<div class="invalid-feedback">Recipe is required</div>
 					<!-- JS Error message-->
 					<small id="recipeErrorMessage" class="form-text text-danger"></small>
@@ -55,7 +55,7 @@ require_once '../adminIncludes/delete.php';
 					</div>
 					<div class="form-group">
 						<label for="description">Description</label>
-						<textarea class="form-control" id="description" name="description" rows="3" required placeholder="enter description" maxlength="200"><?= Helper::html($_POST['description'] ?? RECIPE_INFO['description']); ?></textarea>
+						<textarea class="form-control" id="description" name="description" rows="3" required placeholder="enter description" maxlength="200"><?= Helper::html($_POST['description'] ?? RECIPE['description']); ?></textarea>
 						<div class="invalid-feedback">Description is required</div>
 						<small id="descriptionErrorMessage" class="form-text text-danger"></small>
 						<div class="col-md-12">
@@ -67,7 +67,7 @@ require_once '../adminIncludes/delete.php';
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="prep_time">Prep time (mins)</label>
-							<input type="number" class="form-control" name="prep_time" id="prep_time" maxlength="2" placeholder="Enter a prep time" value="<?= Helper::html($_POST['prep_time'] ?? RECIPE_INFO['prep_time']);  ?>" required>
+							<input type="number" class="form-control" name="prep_time" id="prep_time" maxlength="2" placeholder="Enter a prep time" value="<?= Helper::html($_POST['prep_time'] ?? RECIPE['prep_time']);  ?>" required>
 							<div class="invalid-feedback">Prep time is required</div>
 							<small id="prepTimeErrorMessage" class="form-text text-danger"></small>
 							<div class="col-md-12">
@@ -78,7 +78,7 @@ require_once '../adminIncludes/delete.php';
 						</div>
 						<div class="form-group col-md-4">
 							<label for="cook_time">Cook time (mins)</label>
-							<input type="text" class="form-control" name="cook_time" id="cook_time" maxlength="2" placeholder="Enter a cook_time" value="<?= Helper::html($_POST['cook_time'] ?? RECIPE_INFO['cook_time']); ?>" required>
+							<input type="text" class="form-control" name="cook_time" id="cook_time" maxlength="2" placeholder="Enter a cook_time" value="<?= Helper::html($_POST['cook_time'] ?? RECIPE['cook_time']); ?>" required>
 							<small id="cookTimeErrorMessage" class="form-text text-danger"></small>
 							<small class="form-text text-danger">
 								<?= $errors['cook_time'] ?? null; ?>
@@ -93,7 +93,7 @@ require_once '../adminIncludes/delete.php';
 						<div class="form-group col-md-2">
 							<div class="form-group">
 								<label for="servings">Servings</label>
-								<input type="text" class="form-control" name="servings" id="servings" maxlength="50" placeholder="Enter servings" value="<?= Helper::html($_POST['servings'] ?? RECIPE_INFO['servings']); ?>" required>
+								<input type="text" class="form-control" name="servings" id="servings" maxlength="50" placeholder="Enter servings" value="<?= Helper::html($_POST['servings'] ?? RECIPE['servings']); ?>" required>
 								<div class="col-md-12">
 									<small class="form-text text-danger">
 										<?= $errors['servings'] ?? '' ?>
@@ -106,7 +106,7 @@ require_once '../adminIncludes/delete.php';
 						</div>
 						<div class="form-group col-md-6">
 							<label for="image">Image</label>
-							<input type="url" class="form-control" name="image" id="image" placeholder="Enter image url" value="<?= $_POST['image'] ?? RECIPE_INFO['image']; ?>" required>
+							<input type="url" class="form-control" name="image" id="image" placeholder="Enter image url" value="<?= $_POST['image'] ?? RECIPE['image']; ?>" required>
 							<div class="col-md-12">
 								<small class="form-text text-danger">
 									<?= $errors['image'] ?? null ?>
@@ -118,7 +118,7 @@ require_once '../adminIncludes/delete.php';
 						</div>
 						<div class="form-group col-md-6">
 							<label for="image">Alt</label>
-							<input type="text" class="form-control" name="alt" id="alt" placeholder="Enter image alt" value="<?= $_POST['alt'] ?? RECIPE_INFO['alt']; ?>" required>
+							<input type="text" class="form-control" name="alt" id="alt" placeholder="Enter image alt" value="<?= $_POST['alt'] ?? RECIPE['alt']; ?>" required>
 							<div class="col-md-12">
 								<small class="form-text text-danger">
 									<?= $errors['alt'] ?? null ?>

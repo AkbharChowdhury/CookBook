@@ -24,8 +24,8 @@ if (isset($_GET['editRecipe'])) {
 // create dynamic breadcrumb
 Breadcrumb::getInstanceSubDirectory($current_page, 'manage_recipe.php', null, $page_title)
 ->setEditStatus(true)
-->setEditName(Helper::html(RECIPE_INFO['name']))
-->setEditLink(Helper::html(RECIPE_INFO['recipe_id']))
+->setEditName(Helper::html(RECIPE['name']))
+->setEditLink(Helper::html(RECIPE['recipe_id']))
 ->createBreadCrumb();
 if ($_POST) {
     try {
@@ -42,7 +42,7 @@ if ($_POST) {
 
             $_SESSION['message'] = 'Ingredients added';
             $_SESSION['msg_type'] = 'success';
-            header('location: edit_recipe.php?editRecipe=' . RECIPE_INFO['recipe_id']);
+            header('location: edit_recipe.php?editRecipe=' . RECIPE['recipe_id']);
             return;
         }
 

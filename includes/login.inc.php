@@ -17,7 +17,7 @@ if ($_POST) {
             $_SESSION['logged_in'] = true;
             $_SESSION['email'] = $_POST['email'];
             // check if page was redirected to requested page otherwise redirect to default page
-            $redirect = isset($_SESSION['redirect']) ? $_SESSION['redirect'] : 'admin/admin_home.php';
+            $redirect = isset($_SESSION['redirect']) ? $_SESSION['redirect'] : 'admin/index.php';
             header('location: ' . $redirect);
         } else {
             unset($_POST); // clear all fields

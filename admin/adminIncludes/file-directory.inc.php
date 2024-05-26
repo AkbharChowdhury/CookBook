@@ -7,7 +7,7 @@ require_once ($current_page === 'admin_home') ? '../includes/class-autoload.php'
 
 // Specify dynamic hyperlink
 define("FILE_PATH", array(
-    'home' => (Helper::path()) ? 'admin_home.php' : '../admin_home.php',
+    'home' => (Helper::path()) ? 'index.php' : '../index.php',
     'mail' => (Helper::path()) ? 'mailing/mailing_lists.php' : '../mailing/mailing_lists.php',
     'recipe' => (Helper::path()) ? 'recipes/manage_recipe.php' : '../recipes/manage_recipe.php',
     'category' => (Helper::path()) ? 'categories/manage_categories.php' : '../categories/manage_categories.php',

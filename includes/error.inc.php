@@ -19,7 +19,7 @@
             <h4 class="alert-heading">Access Denied! you do not have permission to access this page</h4>
             <p><?= $errorMsg ?></p>
             <hr>
-            <p class="mb-0">Please contact your administrator for permission. Click <a onclick="window.history.back()" class="alert-link">here</a> to go back or <a onclick="window.location.href='../admin_home.php'" class="alert-link">Return to the admin homepage</a></p>
+            <p class="mb-0">Please contact your administrator for permission. Click <a onclick="window.history.back()" class="alert-link">here</a> to go back or <a onclick="window.location.href='../index.php'" class="alert-link">Return to the admin homepage</a></p>
         </div>
     <?php endif; ?>
     <div class="container-fluid">

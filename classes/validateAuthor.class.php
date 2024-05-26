@@ -23,8 +23,6 @@ class ValidateAuthor extends Validation {
         $this->password();
         $this->verificationCode();
 
-
-        // returning errors array
         return $this->errors;
     }
 

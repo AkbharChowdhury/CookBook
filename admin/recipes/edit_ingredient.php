@@ -14,7 +14,7 @@ require_once '../adminIncludes/edit_ingredient.inc.php';
 			<h3 class="mb-0">Edit Recipe ingredient</h3>
 		</div>
 		<div class="card-body">
-			<h1 class="text-primary"><?=RECIPE_INFO['name']?></h1>
+			<h1 class="text-primary"><?=RECIPE['name']?></h1>
 			<hr class="custom-line">
 			<h2>Current ingredient list</h2>
 			<hr>

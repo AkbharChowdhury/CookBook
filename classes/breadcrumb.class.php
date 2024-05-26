@@ -15,7 +15,7 @@ class Breadcrumb {
     private static $instance = null;
     private $editStatus = false;
     private $editName, $editLink;
-    private $homeLink = true; // admin_home.php by default
+    private $homeLink = true; // index.php by default
 
     /**
      * The object is created from within the class itself
@@ -84,7 +84,7 @@ class Breadcrumb {
                 <div class="pt-3">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb"> 
-                            <li class="breadcrumb-item"><a href="<?=$this->homeLink ? '../admin_home.php' : '.';?>">Home</a></li>
+                            <li class="breadcrumb-item"><a href="<?=$this->homeLink ? '../index.php' : '.';?>">Home</a></li>
                             <?php if (!$this->rootDirectory) : //if the current directory is true?>
                                 <li class="breadcrumb-item"><a href="<?= $this->menuLink ?>"><?= $this->splitWords() ?></a></li>
 

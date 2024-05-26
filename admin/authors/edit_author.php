@@ -20,11 +20,11 @@ require_once '../adminIncludes/edit_author.inc.php';
                         </div>
                         <div class="card-body">
                             <form action="" method="post" id="validateForm" class="needs-validation" novalidate autocomplete="off">
-                                <input type="hidden" name="author_id" value="<?= AUTHOR_INFO['author_id'] ?>">
+                                <input type="hidden" name="author_id" value="<?= AUTHOR['author_id'] ?>">
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="firstname">firstname</label>
-                                        <input type="text" class="form-control" autofocus name="firstname" id="firstname" maxlength="50" placeholder="Enter a firstname" value="<?= htmlspecialchars($_POST['firstname'] ?? AUTHOR_INFO['firstname']) ?>" required>
+                                        <input type="text" class="form-control" autofocus name="firstname" id="firstname" maxlength="50" placeholder="Enter a firstname" value="<?= htmlspecialchars($_POST['firstname'] ?? AUTHOR['firstname']) ?>" required>
                                         <div class="col-md-12">
                                             <small class="form-text text-danger">
                                                 <?= $errors['firstname'] ?? '' ?>
@@ -36,7 +36,7 @@ require_once '../adminIncludes/edit_author.inc.php';
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="lastname">Lastname</label>
-                                        <input type="text" class="form-control" name="lastname" id="lastname" maxlength="50" placeholder="Enter a lastname" value="<?= htmlspecialchars($_POST['lastname'] ?? AUTHOR_INFO['lastname']) ?>" required>
+                                        <input type="text" class="form-control" name="lastname" id="lastname" maxlength="50" placeholder="Enter a lastname" value="<?= htmlspecialchars($_POST['lastname'] ?? AUTHOR['lastname']) ?>" required>
                                         <div class="col-md-12">
                                             <small class="form-text text-danger"> <?= $errors['lastname'] ?? '' ?> </small>
                                             <!-- JS Error message-->
@@ -48,7 +48,7 @@ require_once '../adminIncludes/edit_author.inc.php';
 
                                 <div class="form-group">
                                     <label for="email">email</label>
-                                    <input type="email" class="form-control" name="email" id="email" maxlength="100" placeholder="Enter a email" value="<?= htmlspecialchars($_POST['email'] ?? AUTHOR_INFO['email']) ?>" required>
+                                    <input type="email" class="form-control" name="email" id="email" maxlength="100" placeholder="Enter a email" value="<?= htmlspecialchars($_POST['email'] ?? AUTHOR['email']) ?>" required>
                                     <div class="col-md-12">
                                         <small class="form-text text-danger">
                                             <?= $errors['email'] ?? '' ?>

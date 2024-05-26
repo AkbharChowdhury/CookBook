@@ -7,7 +7,8 @@ Breadcrumb::getInstanceRootDirectory($current_page, null, true)->createBreadCrum
 $current_file = htmlspecialchars($_SERVER['PHP_SELF']);
 
 $author = Author::getInstance();
-$author_exists = $author->showAuthor();
+define("AUTHOR",$author->showAuthor());
+//print_r(AUTHORvar_dump($author_exists));
 
 // if the delete button is clicked
 if (isset($_GET['deleteAuthorID'])) {

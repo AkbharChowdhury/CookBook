@@ -10,6 +10,12 @@ class Mail {
     private static $instance = null;
     private const ADMIN_EMAIL = 'mc8852u@gre.ac.uk';
 
+    public  function  getName()
+    {
+        return $this->firstname. ' '. $this->lastname;
+
+    }
+
     public function setAuthorID($authorID){
         $this->authorID = $authorID;
         return $this;
@@ -51,6 +57,18 @@ class Mail {
 
     public static function getInstance() {
         return self::$instance === null ? self::$instance = new Mail() : self::$instance;
+    }
+    public  function  createEmailTemplate($user)
+    {
+        $this->firstname = $user->firstname;
+        $this->lastname = $user->lastname;
+        $this->from = $user->email;
+        $this->message = 'Welcome ' . $this->getName() . "\n\n" . 'you can now manage your account including modifying your own recipes';
+        $this->subject = 'Cookbook Welcome email';
+        return $this;
+//        'Welcome ' . $author->firstname . ' ' . $author->lastname . "\n\n" . 'you can now manage your account including modifying your own recipes'
+
+
     }
 
 

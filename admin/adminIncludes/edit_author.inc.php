@@ -1,19 +1,16 @@
 <?php
-if(!isset($_GET['editAuthor']) header('location: manage_authors.php');
+if(!isset($_GET['editAuthor'])) header('location: manage_authors.php');
 // creating a breadcrumb menu
 Breadcrumb::getInstanceSubDirectory($current_page, 'manage_authors.php', null, $page_title)->createBreadCrumb();
 // create class instance
 $author = Author::getInstance();
 $login = Login::getInstance();
-//check if author_id is found
 if (isset($_GET['editAuthor'])) {
-
     Helper::validateAuthorID($login);
     $author->addData('author_id', $_GET['editAuthor']);
-    // loop through author table
     foreach ($author->getAuthorID() as $row) {
         // store values in an array
-        define("AUTHOR_INFO", array(
+        define("AUTHOR", array(
             'author_id' => $row['author_id'],
             'firstname' => $row['firstname'],
             'lastname' => $row['lastname'],
@@ -22,9 +19,7 @@ if (isset($_GET['editAuthor'])) {
     }
 }
 
-// if form is submitted
 if ($_POST) {
-    // Validate form
     $validation = ValidateAuthor::getInstance($_POST);
 
     $errors = $validation->validateForm();
@@ -32,9 +27,8 @@ if ($_POST) {
     if (!array_filter($errors)) { //if form validation is successful - error array is empty
         // populate array with email field
         $author->resetData();
-        $author->addData('email', trim($_POST['email']));
 
-        if ($author->checkEmailExists()) {
+        if ($author->emailExists(trim($_POST['email']))) {
             $_SESSION['message'] = $author->getData('email') . ' email is already taken! Please use a different email';
             $_SESSION['msg_type'] = 'danger';
             return;

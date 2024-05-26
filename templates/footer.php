@@ -3,7 +3,7 @@
 	<div class="container-fluid padding">
 		<div class="row text-center">
 			<div class="col-md-4">
-				<a class="navbar-brand" href="admin_home.php"><i class="fas fa-book-reader fa-2x"></i> CookBook</a>
+				<a class="navbar-brand" href="index.php"><i class="fas fa-book-reader fa-2x"></i> CookBook</a>
 				<hr class="bg-light">
 				<p>02083318590</p>
 				<p>CookBook@gmail.com</p>

@@ -22,7 +22,8 @@ require_once '../adminIncludes/manage_authors.inc.php';
 
 <div class="container mt-5"> -->
     <noscript>
-      <p class="text-muted mt-2"><?= $author->getTotalAuthors(); ?> Results found</p>
+
+<!--      <p class="text-muted mt-2">--><?php //= Author::getInstance().getTotalAuthors(); ?><!-- Results found</p>-->
     </noscript> <!-- JS disabled -->
     <p class="text-muted mt-2" id="totalAuthorCount"></p>
     <div class="table-responsive">
@@ -39,8 +40,9 @@ require_once '../adminIncludes/manage_authors.inc.php';
         </thead>
         <tbody>
           <tr>
-            <?php if ($author_exists) : ?>
-              <?php foreach ($author_exists as $row) : ?>
+            <?php if (AUTHOR) : ?>
+              <?php foreach (AUTHOR as $row) : ?>
+
 
                 <td><?= Helper::html($row['firstname']) ?></td>
                 <td><?= Helper::html($row['lastname']) ?></td>

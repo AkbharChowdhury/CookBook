@@ -11,13 +11,14 @@ $(document).ready(function() {
                 data: {email: email},
                 success: function(data) {
 
-                    if (data === '1') {
+                    if (parseInt(data) === 1) {
                         $('#emailErrorMessage').text('This email already exists!');
                         $('#email').addClass("error");
                         $('form').attr('onsubmit', 'return false;'); // disable form submission
                         return;
 
-                    } 
+                    }
+
                     $('#emailErrorMessage').text('');
                     $('#email').removeClass("error");
                     $('form').attr('onsubmit', 'return true;'); // enable default form submission

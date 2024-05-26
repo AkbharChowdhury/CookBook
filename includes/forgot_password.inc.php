@@ -9,7 +9,7 @@ if ($_POST) {
     if (!array_filter($errors)) {
 
         $user->addData('email', $_POST['email']);
-        if (!$user->checkEmailExists()) {            
+        if (!$user->emailExists()) {
             $_SESSION['message'] = 'This email is not registered in our system';
             $_SESSION['msg_type'] = 'danger';
         } else {

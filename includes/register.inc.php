@@ -1,42 +1,41 @@
 <?php
 
+
 try {
     $registerUser = Author::getInstance();
 
-    // if the form was submitted
     if ($_POST) {
+        $user = new User($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['password']);
+
 
         $validation = ValidateAuthor::getInstance($_POST);
         $errors = $validation->validateForm();
-        if (!array_filter($errors)) {
-            // if there are no errors in form then redirect and insert values
+        if (array_filter($errors)) return;
+            if ($registerUser->emailExists($user->email)) { // check for existing email
 
-            // populate array with email field
-            $registerUser->addData('email', $_POST['email']);
-            if ($registerUser->checkEmailExists()) { // check for existing email
-
-                $_SESSION['message'] = $registerUser->getAuthorData('email') . ' email is already taken! Please use a different email';
+                $_SESSION['message'] = $user->email . ' email is already taken! Please use a different email';
                 $_SESSION['msg_type'] = 'danger';
+                return;
+
             } else {
 
                 $registerUser->resetData();
                 // populate array
-                $registerUser->addData('firstname', $_POST['firstname'])
-                    ->addData('lastname', $_POST['lastname'])
-                    ->addData('email', $_POST['email'])
-                    ->addData('password', $_POST['password'] . 'ijdb');
+                $registerUser->addData('firstname', $user->firstname)
+                    ->addData('lastname', $user->lastname)
+                    ->addData('email', $user->email)
+                    ->addData('password', $user->password . 'ijdb');
 
                 // welcome email message
-                $mail = Mail::getInstance()
-                    ->setFirstName($_POST['firstname'])
-                    ->setLastName($_POST['lastname'])
-                    ->setSubject('Cookbook Welcome email')
-                    ->setFrom($_POST['email'])
-                    ->setMessage('welcome ' . $_POST['firstname'] . ' ' . $_POST['lastname'] . "\n\n" . 'you can now manage your account including modifying your own recipes');
+                $mail = Mail::getInstance()->createEmailTemplate($user);
+//                    ->setFirstName($author->firstname)
+//                    ->setLastName($author->lastname)
+//                    ->setSubject('Cookbook Welcome email')
+//                    ->setFrom($_POST['email'])
+//                    ->setMessage('Welcome ' . $author->firstname . ' ' . $author->lastname . "\n\n" . 'you can now manage your account including modifying your own recipes');
 
-                if (!$mail->sendWelcomeMail()) {
-                    echo 'error sending welcome email';
-                }
+                if (!$mail->sendWelcomeMail()) echo 'error sending welcome email';
+
                 // insert author and assign author role
                 if ($registerUser->addAuthor() && $registerUser->addAuthorRole()) {
 
@@ -47,7 +46,6 @@ try {
                     echo 'error creating user account';
                 }
             }
-        } // filter array
     }
 } catch (Exception $e) {
     echo 'error: ' . $e->getMessage();

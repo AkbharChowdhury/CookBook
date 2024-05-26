@@ -152,30 +152,32 @@ class Recipe extends Database implements IRecipe {
     // get detailed recipe page 
     public function getRecipeDetails() {
         // query to select
-        $sql = "SELECT
-        r.`name`,
-        r.`prep_time`,
-        r.`cook_time`,
-        r.`servings`,
-        r.`description`,
-        r.`image`,
-        r.`alt`,
-        GROUP_CONCAT(c.`category_name` SEPARATOR ', ') AS `category_name`,
-        (r.`prep_time` + r.`cook_time`) AS `total_cooking_time`,
-        CONCAT(a.`firstname`, ' ', a.`lastname`) AS `author_name`,
-        a.`email`
-    FROM
-        `RecipeCategory` rc
-    JOIN `Recipes` r ON
-        rc.`recipe_id` = r.`recipe_id`
-    JOIN `Categories` c ON
-        rc.`category_id` = c.`category_id`
-    JOIN `Author` a ON
-        r.`author_id` = a.`author_id`
-    WHERE
-        rc.`recipe_id` = :recipe_id 
+        $sql = "
+       SELECT
+    r.`name`,
+    r.`prep_time`,
+    r.`cook_time`,
+    r.`servings`,
+    r.`description`,
+    r.`image`,
+    r.`alt`,
+    GROUP_CONCAT(c.`category_name` SEPARATOR ', ') AS `category_name`,
+    (r.`prep_time` + r.`cook_time`) AS `total_cooking_time`,
+    CONCAT(a.`firstname`, ' ', a.`lastname`) AS `author_name`,
+    a.`email`
+FROM
+    `RecipeCategory` rc
+JOIN `Recipes` r ON
+    rc.`recipe_id` = r.`recipe_id`
+JOIN `Categories` c ON
+    rc.`category_id` = c.`category_id`
+JOIN `Author` a ON
+    r.`author_id` = a.`author_id`
+WHERE
+    rc.`recipe_id` = :recipe_id
+LIMIT 1;
         
-    LIMIT 1";
+        ";
 
         $stmt = $this->getConnection()->prepare($sql);
         $stmt->execute($this->data);
