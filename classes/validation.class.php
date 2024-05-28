@@ -196,9 +196,9 @@ abstract class Validation {
                 return;
             }
 
-            if (!filter_var($image, FILTER_VALIDATE_URL)) {
-                $this->addError('image', 'Please enter a valid url address');
-            }
+//            if (!filter_var($image, FILTER_VALIDATE_URL)) {
+//                $this->addError('image', 'Please enter a valid url address');
+//            }
         }
     }
 

@@ -172,7 +172,7 @@ $(document).ready(function () {
     checkDescription();
     checkPrepTime();
     checkCookTime();
-    //checkImage(image.val());
+    // checkImage(image.val());
 
     if (!recipeNameError && !descriptionError && !prepError && !cookTimeError  && !categoryError && !imageError) {
 

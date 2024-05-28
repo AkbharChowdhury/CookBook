@@ -16,29 +16,9 @@ define("RECIPE", getRecipeDetails($_GET['editRecipe']));
 			<h3 class="mb-0">Edit Recipe</h3>
 		</div>
 		<!-- Recipe image section -->
-		<?php if (!is_null(RECIPE['image'])) : ?>
-			<section class=" pt-2" id="recipe-image">
-				<div class="row">
-					<div class="col-md-4">
-						<div class="content">
-							<div class="content-overlay"></div>
-							<img class="img-fluid content-image  edit-recipe-img img-thumbnail" src="<?= RECIPE['image'] ?>" alt="<?= RECIPE['alt'] ?>">
-							<div class="content-details fadeIn-bottom">
-								<h3 class="content-title"><?= RECIPE['name'] ?></h3>
-								<p class="content-text"><i class="fas fa-utensils"></i> <?= RECIPE['category_name'] ?></p>
-							</div>
-						</div>
-						<!--.content (Image) -->
-					</div>
-					<!--.col-md-4-->
-				</div>
-				<!--image row-->
-			</section>
-		<?php else : ?>
-			<p class="lead mt-2 p-3">No recipe image</p>
-		<?php endif; ?>
+		<?php require_once '../adminIncludes/image.inc.php'; ?>
 		<div class="card-body">
-			<form action="" method="post" class="needs-validation" novalidate autocomplete="off">
+			<form action="" method="post" class="needs-validation"  autocomplete="off">
 				<input type="hidden" name="recipe_id" value="<?= RECIPE['recipe_id'] ?>">
 				<h1 class="text-primary p-2">Recipe Details</h1>
 				<hr class="custom-line">
@@ -106,7 +86,7 @@ define("RECIPE", getRecipeDetails($_GET['editRecipe']));
 						</div>
 						<div class="form-group col-md-6">
 							<label for="image">Image</label>
-							<input type="url" class="form-control" name="image" id="image" placeholder="Enter image url" value="<?= $_POST['image'] ?? RECIPE['image']; ?>" required>
+							<input type="text" class="form-control" name="image" id="image" placeholder="Enter image url" value="<?= $_POST['image'] ?? RECIPE['image']; ?>" required>
 							<div class="col-md-12">
 								<small class="form-text text-danger">
 									<?= $errors['image'] ?? null ?>
@@ -196,7 +176,7 @@ define("RECIPE", getRecipeDetails($_GET['editRecipe']));
 						<h4>Categories</h4>
 						<hr>
 						<section class="categories">
-							<?php foreach ($categories as $category) : ?>
+							<?php foreach (categories() as $category) : ?>
 								<div class="custom-control custom-checkbox">
 									<input type="checkbox" class="custom-control-input categories" name="categories[]" id="<?= Helper::html($category['category_name']); ?>" value="<?= Helper::html($category['category_id']); ?>" <?php if ($category['selected']) echo ' checked'; ?>>
 									<label class="custom-control-label" for="<?= Helper::html($category['category_name']); ?>"><?= Helper::html($category['category_name']); ?></label>

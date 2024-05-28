@@ -1,11 +1,16 @@
 <?php
-if(!isset($_GET['editRecipe'])) header('location: manage_recipe.php');
+if (!isset($_GET['editRecipe'])) header('location: manage_recipe.php');
 
 Breadcrumb::getInstanceSubDirectory($current_page, 'manage_recipe.php', null, $page_title)->createBreadCrumb();
 require_once '../../includes/interface-autoload.php';
 $recipe = ManageRecipe::getInstance();
 
 $id = $_GET['editRecipe'];
+function getID()
+{
+    return $_GET['editRecipe'];
+
+}
 
 //$info = $recipe->getRecipeDetails($id);
 //print_r(var_dump($info));
@@ -19,7 +24,6 @@ $id = $_GET['editRecipe'];
 //die();
 
 
-
 //check if recipe_id is found
 if (isset($_GET['editRecipe'])) {
 
@@ -28,24 +32,36 @@ if (isset($_GET['editRecipe'])) {
 //    $recipe->addData('recipe_id', $_GET['editRecipe']);
     $recipe->setRecipeID($recipeID);
 
+    function selectedCategories()
+    {
+        $recipe = ManageRecipe::getInstance();
+        $selected_categories = [];
+        foreach ($recipe->getCategories(getID()) as $row) {
+            $selected_categories[] = $row['category_id'];
+        }
+        return $selected_categories;
 
-    foreach ($recipe->getCategories($recipeID) as $row) {
-        $selected_categories[] = $row['category_id'];
-    }
-    $cat = Category::getInstance();
-    foreach ($cat->showCategories() as $row) {
-        $categories[] = [
-            'category_id' => $row['category_id'],
-            'category_name' => $row['category_name'],
-            'selected' => in_array($row['category_id'], $selected_categories)
-        ];
     }
 
-
-//    foreach ($recipe->getRecipeDetails($recipeID) as $row) {
-//        echo $row['name'];
-//
+//    foreach ($recipe->getCategories($recipeID) as $row) {
+//        $selected_categories[] = $row['category_id'];
 //    }
+
+    function categories()
+    {
+        $cat = Category::getInstance();
+        $categories = [];
+        foreach ($cat->showCategories() as $row) {
+            $categories[] = [
+                'category_id' => $row['category_id'],
+                'category_name' => $row['category_name'],
+                'selected' => in_array($row['category_id'], selectedCategories())
+            ];
+        }
+        return $categories;
+
+    }
+
 
 
     function getRecipeDetails($id)
