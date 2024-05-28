@@ -18,9 +18,9 @@ require_once '../adminIncludes/edit_ingredient.inc.php';
 			<hr class="custom-line">
 			<h2>Current ingredient list</h2>
 			<hr>
-			<?php if($recipe->getIngredients()): ?>
+			<?php if($recipe->getIngredients($recipeID)): ?>
 				<ul>
-				<?php foreach($recipe->getIngredients() as $row):?>
+				<?php foreach($recipe->getIngredients($recipeID) as $row):?>
 					<?php if(!empty(Helper::html($row['title']))):?>
 
                         <p class="lead font-weight-bold"><?=Helper::html($row['title'])?></p>

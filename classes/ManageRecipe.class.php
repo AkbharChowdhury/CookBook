@@ -111,9 +111,7 @@ class ManageRecipe extends Recipe implements IRecipe {
     return $stmt->fetchAll();
     }
 
-    // display single recipe
-    public function getRecipeDetails() {
-        // query to select and retrieve a single recipe 
+    public function getRecipeDetails($recipeID) {
         $sql = "SELECT
         rc.`recipe_id`,
         r.`author_id`,
@@ -136,19 +134,20 @@ class ManageRecipe extends Recipe implements IRecipe {
     JOIN `Author` a ON
         r.`author_id` = a.`author_id`
     WHERE
-        rc.`recipe_id` = :recipe_id 
+        rc.`recipe_id` = :id 
         
     LIMIT 1";
         $stmt = $this->getConnection()->prepare($sql);
-        $stmt->execute($this->data);
+        $stmt->bindParam(":id", $recipeID);
+        $stmt->execute();
         return $stmt->fetchAll();
     }
 
     // get recipe category
-    public function getCategories() {
-        $sql = "SELECT `category_id` FROM `RecipeCategory` WHERE `recipe_id` = :recipe_id";
+    public function getCategories($recipeID) {
+        $sql = "SELECT `category_id` FROM `RecipeCategory` WHERE `recipe_id` = :id";
         $stmt = $this->getConnection()->prepare($sql);
-        $stmt->execute($this->data);
+        $stmt->execute([':id'=> $recipeID]);
         return $stmt->fetchAll();
     }
 
@@ -359,7 +358,7 @@ class ManageRecipe extends Recipe implements IRecipe {
 
     }
 
-    public function deleteRecipe() {
+    public function deleteRecipe($id) {
         // inserts new student record to database
         $sql = "DELETE FROM `Recipes` WHERE `recipe_id` = :recipe_id";
         $stmt = $this->getConnection()->prepare($sql);
@@ -369,11 +368,11 @@ class ManageRecipe extends Recipe implements IRecipe {
     }
 
     // delete the recipe image - Note the permission may be denied
-    public function deleteRecipeImage() {
+    public function deleteRecipeImage($id) {
 
-        $sql = "SELECT `image` FROM `Recipes` WHERE `recipe_id` = :recipe_id";
+        $sql = "SELECT `image` FROM `Recipes` WHERE `recipe_id` = :id";
         $stmt = $this->getConnection()->prepare($sql);
-        $stmt->execute($this->data);
+        $stmt->execute([':id'=>$id]);
         $row = $stmt->fetch();
         // unlink is used to delete a file
         return unlink('../../img/' . $row['image']);

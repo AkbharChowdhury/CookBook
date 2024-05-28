@@ -150,7 +150,7 @@ class Recipe extends Database implements IRecipe {
     }
 
     // get detailed recipe page 
-    public function getRecipeDetails() {
+    public function getRecipeDetails($recipeID) {
         // query to select
         $sql = "
        SELECT
@@ -180,23 +180,27 @@ LIMIT 1;
         ";
 
         $stmt = $this->getConnection()->prepare($sql);
-        $stmt->execute($this->data);
+        $stmt->bindParam(":recipe_id", $recipeID);
+
+        $stmt->execute();
         return $stmt->fetchAll();
     }
 
-    final public function getIngredients() {
+    final public function getIngredients($recipeID) {
 
-        $sql = "SELECT r.`name`, i.`ingredient_id`, i.`ingredient`, i.`title` FROM `Recipes` r JOIN `Ingredients` i  ON r.`recipe_id` = i.`recipe_id` WHERE i.`recipe_id` = :recipe_id";
+        $sql = "SELECT r.`name`, i.`ingredient_id`, i.`ingredient`, i.`title` FROM `Recipes` r JOIN `Ingredients` i  ON r.`recipe_id` = i.`recipe_id` WHERE i.`recipe_id` = :id";
         $stmt = $this->getConnection()->prepare($sql);
-        $stmt->execute($this->data);
+        $stmt->bindParam(':id', $recipeID);
+        $stmt->execute();
         return $stmt->fetchAll();
     }
 
-    final public function getPrepMethod() {
+    final public function getPrepMethod($recipeID) {
 
-        $sql = "SELECT r.`name`, pm.`prep_id`,pm.`method` FROM `Recipes` r JOIN `PrepMethod` pm  ON r.`recipe_id` = pm.`recipe_id` WHERE pm.`recipe_id` = :recipe_id";
+        $sql = "SELECT r.`name`, pm.`prep_id`,pm.`method` FROM `Recipes` r JOIN `PrepMethod` pm  ON r.`recipe_id` = pm.`recipe_id` WHERE pm.`recipe_id` = :id";
         $stmt = $this->getConnection()->prepare($sql);
-        $stmt->execute($this->data);
+        $stmt->bindParam(':id', $recipeID);
+        $stmt->execute();
         return $stmt->fetchAll();
     }
 

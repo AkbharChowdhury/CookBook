@@ -5,7 +5,8 @@ require_once 'includes/recipe_details.inc.php';
 
 $current_page = 'recipe';
 $page_title = RECIPE['name'];
-require_once 'templates/header.php'; ?>
+require_once 'templates/header.php';
+?>
 
 <div class="container">
     <!-- breadcrumb -->
@@ -61,7 +62,7 @@ require_once 'templates/header.php'; ?>
                     <div class="tab-pane fade show active" id="nav-disciplinary-stages" role="tabpanel" aria-labelledby="nav-disciplinary-stages">
                         <div class="card-body">
                             <ul class="list-unstyled">
-                                <?php foreach ($recipe->getIngredients() as $ingredient):?>
+                                <?php foreach ($recipe->getIngredients(RECIPE['id']) as $ingredient):?>
                                     <?php if(!empty(Helper::html($ingredient['title']))):?>
                                         <p class="lead font-weight-bold"><?=Helper::html($ingredient['title'])?></p>
                                         <hr class="custom-line">
@@ -75,7 +76,7 @@ require_once 'templates/header.php'; ?>
                     <div class="tab-pane fade" id="nav-expectations" role="tabpanel" aria-labelledby="nav-expectations-tab">
                         <div class="card-body">
                         <ul class="ordered-list">
-                                <?php foreach ($recipe->getPrepMethod() as $prep_method):?>
+                                <?php foreach ($recipe->getPrepMethod(RECIPE['id']) as $prep_method):?>
                                     <li><?=Helper::html($prep_method['method'])?></li>
                                     <hr class="custom-line-list">
                                 <?php endforeach;?>

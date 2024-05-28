@@ -11,14 +11,13 @@ if (isset($_GET['editRecipe'])) {
     Helper::validateAuthorRecipeID(Login::getInstance());
 
 
-    $recipeID = $_GET['editRecipe'] ?? null;
+    $recipeID = $_GET['editRecipe'];
     $recipe->addData('recipe_id', $_GET['editRecipe']);
-    foreach ($recipe->getRecipeDetails() as $row) {
-        // store values in an array
-        define("RECIPE_INFO", array(
+    foreach ($recipe->getRecipeDetails($recipeID) as $row) {
+        define("RECIPE", [
             'recipe_id' => $row['recipe_id'],
             'name' => $row['name'],
-        ), false);
+        ]);
     }
 } 
 

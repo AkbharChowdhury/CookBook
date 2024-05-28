@@ -47,7 +47,7 @@ require_once '../adminIncludes/manage_recipe.inc.php';
                     <?php if(empty(Helper::html($row['image']))):?>
                       <td><p class="text-muted">No recipe image</p></td>
                     <?php else: ?>
-                      <td><img src="<?=$row['image']?>" alt="<?=Helper::html($row['alt'])?>" class="img-fluid"></td>
+                      <td><img src="<?=Helper::image($row['image'])?>" alt="<?=Helper::html($row['alt'])?>" class="img-fluid"></td>
                     <?php endif; ?>
                     <td>
                     <a href="edit_recipe.php?editRecipe=<?=Helper::html($row['recipe_id']) ?>" role="button" class="btn btn-info mb-4">Edit</a>

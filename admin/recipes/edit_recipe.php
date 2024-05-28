@@ -2,10 +2,10 @@
 $current_page = 'manage_recipe';
 $page_title = 'Edit Recipe';
 require_once '../../templates/header.php';
-// code logic
 require_once '../adminIncludes/edit_recipe.inc.php';
 require_once '../adminIncludes/delete.php';
-//echo RECIPE_INFO['cook_time']
+define("RECIPE", getRecipeDetails($_GET['editRecipe']));
+
 ?>
 <section class="container py-3">
 	<?php require_once '../../includes/session_message.inc.php' ?>
@@ -22,7 +22,7 @@ require_once '../adminIncludes/delete.php';
 					<div class="col-md-4">
 						<div class="content">
 							<div class="content-overlay"></div>
-							<img class="img-fluid content-image  edit-recipe-img img-thumbnail" src="<?= $row['image'] ?>" alt="<?= RECIPE['alt'] ?>">
+							<img class="img-fluid content-image  edit-recipe-img img-thumbnail" src="<?= RECIPE['image'] ?>" alt="<?= RECIPE['alt'] ?>">
 							<div class="content-details fadeIn-bottom">
 								<h3 class="content-title"><?= RECIPE['name'] ?></h3>
 								<p class="content-text"><i class="fas fa-utensils"></i> <?= RECIPE['category_name'] ?></p>
@@ -134,7 +134,7 @@ require_once '../adminIncludes/delete.php';
 						<div class="col-md-6" id="ingredient-items">
 							<h2 class="text-dark">Ingredients</h2>
 							<div class="form-group">
-								<?php foreach ($recipe->getIngredients() as $ingredient_row) : ?>
+								<?php foreach ($recipe->getIngredients(RECIPE['recipe_id']) as $ingredient_row) : ?>
 									<div class="form-inline">
 										<div class="input-group">
 											<table>
@@ -161,13 +161,13 @@ require_once '../adminIncludes/delete.php';
 						</div>
 						<!-- append ingredient list end -->
 						<div class="form-group col-md-6">
-							<a href="edit_ingredient.php?editRecipe=<?= $row['recipe_id'] ?>" role="button" class="btn btn-info">Add Ingredients</a>
+							<a href="edit_ingredient.php?editRecipe=<?= RECIPE['recipe_id'] ?>" role="button" class="btn btn-info">Add Ingredients</a>
 						</div>
 						<!-- append preparation list-->
 						<div class="col-md-6" id="prep-method-items">
 							<h2 class="text-dark">Preparation Method</h2>
 							<div class="form-group">
-								<?php foreach ($recipe->getPrepMethod() as $prep_row) : ?>
+								<?php foreach ($recipe->getPrepMethod(RECIPE['recipe_id']) as $prep_row) : ?>
 									<table>
 										<tr id="delete-prep-id<?= $prep_row['prep_id'] ?>">
 											<td style="width:100%"><textarea style="width:100%; height:100%;" class="form-control" id="prep_method_list" required name="prep_method_list[]" rows="4" cols="5" required placeholder="enter prep method" maxlength="200"><?= Helper::html($_POST['prep_method_list'] ?? $prep_row['method']); ?></textarea></td>
@@ -186,7 +186,7 @@ require_once '../adminIncludes/delete.php';
 						</div>
 						<!-- append preparation list end -->
 						<div class="form-group col-md-6">
-							<a href="edit_prep.php?editRecipe=<?= $row['recipe_id'] ?>" role="button" class="btn btn-dark mt-3">Add Prep method</a>
+							<a href="edit_prep.php?editRecipe=<?= RECIPE['recipe_id'] ?>" role="button" class="btn btn-dark mt-3">Add Prep method</a>
 						</div>
 					</div>
 					<h1 class="text-primary p-2">Categories</h1>

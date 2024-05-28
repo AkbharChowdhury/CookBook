@@ -19,9 +19,9 @@ $current_file = htmlspecialchars($_SERVER['PHP_SELF']);
 
 if (isset($_GET['delete'])) {
 
-    $recipe->addData('recipe_id', $_GET['delete']);
+//    $recipe->addData('recipe_id',);
 
-    if ($recipe->deleteRecipe()) {
+    if ($recipe->deleteRecipe( $_GET['delete'])) {
 
         $_SESSION['message'] = 'Recipe Deleted';
         $_SESSION['msg_type'] = 'danger';

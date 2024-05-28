@@ -3,30 +3,24 @@ if (!isset($_GET['editRecipe'])) header('location: manage_recipe.php');
 
 require_once "../../includes/interface-autoload.php";
 $recipe = ManageRecipe::getInstance();
-
-// code logic
 if (isset($_GET['editRecipe'])) {
     Helper::validateAuthorRecipeID(Login::getInstance());
-
-    $recipeID = $_GET['editRecipe'] ?? null;
-    $recipe->addData('recipe_id', $_GET['editRecipe']);
-    foreach ($recipe->getRecipeDetails() as $row) {
-        // store values in an array
-        define("RECIPE_INFO", array(
+    $recipeID = $_GET['editRecipe'];
+    foreach ($recipe->getRecipeDetails($recipeID) as $row) {
+        define("RECIPE", [
             'recipe_id' => $row['recipe_id'],
             'name' => $row['name'],
-        ));
+        ]);
         
     }
-    $recipe->getRecipeDetails();
 }
 
-// create dynamic breadcrumb
 Breadcrumb::getInstanceSubDirectory($current_page, 'manage_recipe.php', null, $page_title)
 ->setEditStatus(true)
 ->setEditName(Helper::html(RECIPE['name']))
 ->setEditLink(Helper::html(RECIPE['recipe_id']))
 ->createBreadCrumb();
+
 if ($_POST) {
     try {
         foreach($_POST['ingredient_list'] as $i){

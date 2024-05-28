@@ -50,27 +50,33 @@ final class Helper {
     }
 
     // sanitize data and output html.
-    public static function html($text) {
-        return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+    public static function html($text): string
+    {
+
+        return htmlspecialchars($text ?? '', ENT_QUOTES, 'UTF-8');
     }
 
 
     // Check root directory for dynamic link/path - admin folder
-    public static function path() {
+    public static function path(): bool
+    {
 
         return self::$directory;
     }
 
     // set (file) directory - setter directory field
-    public static function setDirectory($status) {
+    public static function setDirectory($status): void
+    {
         self::$directory = $status;
     }
 
     // default no cook-time message - checkbox on recipe data entry form
-    public static function noCookingMsg() {
+    public static function noCookingMsg(): string
+    {
         return 'No cooking time required';
     }
-    public static function image($path) {
+    public static function image($path): string
+    {
         return self::path() ? 'img/' . $path : '../../img/' . $path;
     }
 

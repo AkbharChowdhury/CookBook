@@ -19,9 +19,9 @@ require_once '../adminIncludes/edit_prep.inc.php';
 		<h1 class="text-primary"><?=RECIPE['name']?></h1>
 			<hr class="custom-line">
 			<h2>Current Prep list</h2>
-			<?php if($recipe->getPrepMethod()):?>
+			<?php if($recipe->getPrepMethod($recipeID)):?>
 				<ul class="ordered-list">
-					<?php foreach($recipe->getPrepMethod() as $row):?>
+					<?php foreach($recipe->getPrepMethod($recipeID) as $row):?>
 						<li><?=Helper::html($row['method'])?></li>
 						<hr class="custom-line-list">
 					<?php endforeach;?>

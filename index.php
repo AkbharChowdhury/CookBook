@@ -3,6 +3,8 @@ $current_page = 'index';
 $page_title = 'Home - Cookbook - Get cooking today';
 require_once 'templates/header.php';
 require_once 'includes/search.inc.php';
+
+//print_r(var_dump($recipe->getIngredients(60)));
 ?>
 
 <!-- static image background -->

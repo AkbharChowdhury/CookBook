@@ -8,8 +8,8 @@ $recipe = ManageRecipe::getInstance();
 
 if (isset($_POST['recipe_id'])) {
     $recipeID = Helper::html($_POST['recipe_id']);
-    $recipe->addData('recipe_id',$recipeID);
-    if($recipe->deleteRecipe()){
+//    $recipe->addData('recipe_id',$recipeID);
+    if($recipe->deleteRecipe($recipeID)){
         echo 'Recipe deleted';
     }
 }

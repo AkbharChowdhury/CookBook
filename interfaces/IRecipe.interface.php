@@ -4,8 +4,8 @@ interface IRecipe {
 
     public function fetchRecipes();
     public function getTotalRecipes();
-    public function getRecipeDetails();
-    public function getPrepMethod();
-    public function getIngredients();
+    public function getRecipeDetails($recipeID);
+    public function getPrepMethod($recipeID);
+    public function getIngredients($recipeID);
 
 }

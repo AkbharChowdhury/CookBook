@@ -1,11 +1,19 @@
 <?php
 declare(strict_types=1);
-//ini_set('display_errors', '1');
-//ini_set('display_startup_errors', '1');
-//error_reporting(E_ALL);
+showErrors();
 define('PAGES', ['index', 'about', 'contact', 'recipe', 'login', 'register', 'profile']);
 define('HEADER_PATH', dirname(__FILE__, 2) . DIRECTORY_SEPARATOR . 'includes/header.inc.php');
 require_once HEADER_PATH;
+
+
+function showErrors()
+{
+    ini_set('display_errors', '1');
+    ini_set('display_startup_errors', '1');
+    error_reporting(E_ALL);
+
+}
+
 ?>
 
 <!doctype html>
@@ -76,7 +84,7 @@ require_once HEADER_PATH;
         </ul>
 
         <ul class="navbar-nav ml-auto">
-            <?php if (!isset($_SESSION['logged_in'])): // nav-links for when user is not logged in  ?>
+            <?php if (!isset($_SESSION['logged_in'])): // nav-links for when user is not logged in   ?>
             <li class="nav-item <?= Helper::activeLink('login'); ?>">
                 <a class="nav-link" href="login.php">Login <?= Helper::srOnly('login'); ?></a>
             </li>
