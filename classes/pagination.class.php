@@ -12,7 +12,6 @@ class Pagination {
         $category,
         $author; 
     
-     // Hold the class instance.
     private static $instance = null;
 
     

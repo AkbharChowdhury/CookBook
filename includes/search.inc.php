@@ -44,7 +44,7 @@ $recipe->setPageNumber($page)
 ->setFromRecordNum($from_record_num);
 
 // query the recipes - search results
-$stmt = $recipe->fetchRecipes();
+$recipes = $recipe->fetchRecipes();
 
 $current_file = htmlspecialchars($_SERVER['PHP_SELF']);
 // specify the page where paging is used

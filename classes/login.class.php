@@ -1,19 +1,24 @@
 <?php
 
-class Login extends Database {
+class Login extends Database
+{
 
-    private $errorMessage;
-    private static $instance = null;
+    private string $errorMessage = '';
+    private static ?Login $instance = null;
 
-    private function __construct(){}
+    private function __construct()
+    {
+    }
 
 
-    public static function getInstance(){
+    public static function getInstance()
+    {
         return self::$instance === null ? self::$instance = new Login() : self::$instance;
     }
 
 
-    public function getAuthorID(){
+    public function getAuthorID()
+    {
         $sql = "SELECT `author_id` FROM `Author` WHERE `email` = :email";
         $stmt = $this->getConnection()->prepare($sql);
         $stmt->bindParam(':email', $_SESSION['email']);
@@ -22,7 +27,8 @@ class Login extends Database {
     }
 
     // get logged in author recipe id
-    public function getAuthorRecipeID($authorID){
+    public function getAuthorRecipeID($authorID)
+    {
         $sql = "SELECT `recipe_id` FROM `Recipes` WHERE `author_id` = :authorID";
         $stmt = $this->getConnection()->prepare($sql);
         $stmt->bindParam(':authorID', $authorID);
@@ -31,17 +37,21 @@ class Login extends Database {
     }
 
     // get author login credentials
-    public function databaseContainsAuthor(){
+    public function databaseContainsAuthor($email, $password)
+    {
         $sql = "SELECT COUNT(*) AS `author_found` FROM `Author` WHERE `email` = :email AND `password` = :password";
         $stmt = $this->getConnection()->prepare($sql);
-        $stmt->execute($this->data);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':password', $password);
+        $stmt->execute();
         $row = $stmt->fetch();
         $this->errorMessage = !$row['author_found'] > 0 ? 'incorrect email/password' : '';
-        return $row['author_found'] > 0 ? true : false;
+        return $row['author_found'] > 0;
     }
 
     // check if author role has permission to access restricted area
-    public function userHasRole($role){
+    public function userHasRole($role)
+    {
         $sql = "SELECT COUNT(*) AS `role_found`
         FROM
             `Author` a
@@ -56,11 +66,11 @@ class Login extends Database {
         $stmt->bindValue(':roleID', $role);
         $stmt->execute();
         $row = $stmt->fetch();
-        return $row['role_found'] > 0 ? true : false;
+        return $row['role_found'] > 0;
     }
 
-    // get error message
-    public function getErrorMessage(){
+    public function getErrorMessage(): string
+    {
         return $this->errorMessage;
     }
 }

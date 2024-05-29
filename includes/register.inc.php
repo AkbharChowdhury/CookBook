@@ -7,7 +7,6 @@ try {
     if ($_POST) {
         $user = new User($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['password']);
 
-
         $validation = ValidateAuthor::getInstance($_POST);
         $errors = $validation->validateForm();
         if (array_filter($errors)) return;
@@ -20,7 +19,6 @@ try {
             } else {
 
                 $registerUser->resetData();
-                // populate array
                 $registerUser->addData('firstname', $user->firstname)
                     ->addData('lastname', $user->lastname)
                     ->addData('email', $user->email)
@@ -42,9 +40,9 @@ try {
                     $_SESSION['message'] = 'Thank you for registering, you can now <a href="login.php" class="alert-link">Login</a> or <a href="." class="alert-link">Return to the homepage</a>';
                     $_SESSION['msg_type'] = 'success';
                     unset($_POST);
-                } else {
-                    echo 'error creating user account';
+                    return;
                 }
+                echo 'error creating user account';
             }
     }
 } catch (Exception $e) {

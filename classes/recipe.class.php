@@ -1,18 +1,17 @@
 <?php
 
-class Recipe extends Database implements IRecipe {
+class Recipe extends Database implements IRecipe
+{
 
     //class properties
     protected $recipeName,
-            $pageNumber,
-            // ID properties
-            $authorID, $categoryID,
-            // Search-text
-            $searchTerm;
+        $pageNumber,
+        $authorID, $categoryID,
+        $searchTerm;
     // search recipes from database properties
     private $select, $from, $where, $combinedSearch,
-            // construct query
-            $placeholders = array();
+        // construct query
+        $placeholders = [];
     // count recipes from database properties
     private $selectCount, $fromCount, $whereCount, $combinedSearchCount;
 
@@ -22,63 +21,79 @@ class Recipe extends Database implements IRecipe {
 
 
     // setters
-    public function setRecipeName($recipeName){
+    public function setRecipeName($recipeName)
+    {
 
         $this->recipeName = $recipeName;
         return $this;
     }
-    public function setPageNumber($pageNumber){
+
+    public function setPageNumber($pageNumber)
+    {
 
         $this->pageNumber = $pageNumber;
         return $this;
     }
-    public function setAuthorID($authorID){
+
+    public function setAuthorID($authorID)
+    {
 
         $this->authorID = $authorID;
         return $this;
     }
-    public function setCategoryID($categoryID){
+
+    public function setCategoryID($categoryID)
+    {
 
         $this->categoryID = $categoryID;
         return $this;
     }
-    public function setSearchTerm($searchTerm){
+
+    public function setSearchTerm($searchTerm)
+    {
 
         $this->searchTerm = $searchTerm;
         return $this;
     }
 
-    public function getRecordsPerPage() {
+    public function getRecordsPerPage()
+    {
         return self::RECORDS_PER_PAGE;
     }
 
-    public function setFromRecordNum($fromRecordNum) {
+    public function setFromRecordNum($fromRecordNum)
+    {
         $this->fromRecordNum = $fromRecordNum;
         return $this;
     }
 
-    public function getSearchSQL() {
+    public function getSearchSQL()
+    {
         return $this->combinedSearch;
     }
 
     // Hold the class instance.
     private static $instance = null;
-    
-    private function __construct(){}
 
-    public static function getInstance() {
+    private function __construct()
+    {
+    }
+
+    public static function getInstance()
+    {
 
         return self::$instance === null ? self::$instance = new Recipe() : self::$instance;
     }
 
- 
+
     /**
      * getPageNumber() Notes:
      * get the current page number to determine the ordering of query using sessions
-     * Check if page number is one: randomize rand(seed) and store it in a session to pass to other pages. 
+     * Check if page number is one: randomize rand(seed) and store it in a session to pass to other pages.
      * Otherwise return the existing recipe random order.
      */
-    private function getPageNumber(){
+    private function getPageNumber()
+    {
         $this->pageNumber = intval($this->pageNumber);
         return $this->pageNumber === 1 ? $_SESSION['existing_recipe'] = rand(1, 100) : $_SESSION['existing_recipe'];
     }
@@ -86,7 +101,8 @@ class Recipe extends Database implements IRecipe {
     /** ******************************** populate drop down list ********************************** */
 
     // get category list
-    public function getCategory() {
+    public function getCategory()
+    {
 
         // select unique categories from recipes table
         $sql = "SELECT DISTINCT c.`category_id`, c.`category_name` FROM `RecipeCategory` rc JOIN `Categories` c ON rc.`category_id` = c.`category_id`";
@@ -96,8 +112,9 @@ class Recipe extends Database implements IRecipe {
     }
 
     // get author list - filter authors based on search results
-    public function getAuthor() {
-        $this->placeholders = array();
+    public function getAuthor()
+    {
+        $this->placeholders = [];
         // reset $this->where property
         $this->where = null;
 
@@ -123,10 +140,10 @@ class Recipe extends Database implements IRecipe {
 
     /** ******************************** end of populate drop down list ********************************** */
 
-    public function getMinCategory($category) {
+    public function getMinCategory($category)
+    {
 
-        //clear placeholder array
-        $this->placeholders = array();
+
         // calculate the minimum total cooking time for a category query
         $sql = "SELECT
         r.name,
@@ -141,16 +158,14 @@ class Recipe extends Database implements IRecipe {
         WHERE c.`category_name` LIKE :category LIMIT 1";
 
         $stmt = $this->getConnection()->prepare($sql);
-        $this->placeholders[':category'] = '%' . $category . '%';
-
-        $stmt->execute($this->placeholders);
+        $stmt->execute([':category' => '%' . $category . '%']);
         // loop through results
         $row = $stmt->fetch();
         return $row['total_cooking_time'];
     }
 
-    // get detailed recipe page 
-    public function getRecipeDetails($recipeID) {
+    public function getRecipeDetails($recipeID)
+    {
         // query to select
         $sql = "
        SELECT
@@ -181,12 +196,12 @@ LIMIT 1;
 
         $stmt = $this->getConnection()->prepare($sql);
         $stmt->bindParam(":recipe_id", $recipeID);
-
         $stmt->execute();
         return $stmt->fetchAll();
     }
 
-    final public function getIngredients($recipeID) {
+    final public function getIngredients($recipeID)
+    {
 
         $sql = "SELECT r.`name`, i.`ingredient_id`, i.`ingredient`, i.`title` FROM `Recipes` r JOIN `Ingredients` i  ON r.`recipe_id` = i.`recipe_id` WHERE i.`recipe_id` = :id";
         $stmt = $this->getConnection()->prepare($sql);
@@ -195,7 +210,8 @@ LIMIT 1;
         return $stmt->fetchAll();
     }
 
-    final public function getPrepMethod($recipeID) {
+    final public function getPrepMethod($recipeID)
+    {
 
         $sql = "SELECT r.`name`, pm.`prep_id`,pm.`method` FROM `Recipes` r JOIN `PrepMethod` pm  ON r.`recipe_id` = pm.`recipe_id` WHERE pm.`recipe_id` = :id";
         $stmt = $this->getConnection()->prepare($sql);
@@ -205,14 +221,16 @@ LIMIT 1;
     }
 
     // used for paging recipes
-    public function getTotalRecipes() {
+    public function getTotalRecipes()
+    {
         $query = "SELECT COUNT(DISTINCT(`recipe_id`)) AS `recipe_total` FROM `RecipeCategory`";
         return $this->getConnection()->query($query)->fetchColumn();
     }
 
     //************ check if search filters are selected ******************/
     // Check if a category is selected
-    private function categorySelected($filter, $args) {
+    private function categorySelected($filter, $args)
+    {
         if (!empty($this->categoryID)) {
             $this->filterRecipe($filter, $args);
             $this->placeholders[':category_id'] = '%' . $this->categoryID . '%';
@@ -220,7 +238,8 @@ LIMIT 1;
     }
 
     // Check if an author is selected
-    private function authorSelected($filter, $args) {
+    private function authorSelected($filter, $args)
+    {
         if (!empty($this->authorID)) {
             $this->filterRecipe($filter, $args);
             $this->where .= $filter;
@@ -229,7 +248,8 @@ LIMIT 1;
     }
 
     // Check if a text is entered
-    private function searchTerm($filter, $args) {
+    private function searchTerm($filter, $args)
+    {
         if (!empty($this->searchTerm)) {
             $this->filterRecipe($filter, $args);
             $this->where .= $filter;
@@ -238,7 +258,8 @@ LIMIT 1;
     }
 
     // filter the recipe depending on which where property is used
-    private function filterRecipe($filter, $args) {
+    private function filterRecipe($filter, $args)
+    {
         if ($args === $this->where) {
             $this->where .= $filter;
         } else {
@@ -250,8 +271,8 @@ LIMIT 1;
 
     /* Search recipes in the database */
 
-    public function fetchRecipes() {
-        // select query
+    public function fetchRecipes()
+    {
         $this->select = "SELECT
         rc.`category_id`,
         r.`recipe_id`,
@@ -285,9 +306,7 @@ LIMIT 1;
         // Check if text is entered
         $this->searchTerm(" AND r.`name` LIKE :name", $this->where);
 
-        // group by
         $this->where .= ' GROUP BY r.`name`';
-        // if category is selected
         $this->categorySelected(" HAVING `categories` LIKE :category_id", $this->where);
 
         // randomize query and set page limit
@@ -295,15 +314,14 @@ LIMIT 1;
 
         //resulting query
         $this->combinedSearch = $this->select . $this->from . $this->where;
-        //prepare query
         $stmt = $this->getConnection()->prepare($this->combinedSearch);
-        // execute query
         $stmt->execute($this->placeholders);
         return $stmt->fetchAll();
     }
 
     // if no search results are found then show the list of all the recipes for the selected author
-    public function relatedRecipeResults() {
+    public function relatedRecipeResults()
+    {
         // select query
         $this->select = "SELECT
         r.`recipe_id`,
@@ -336,7 +354,8 @@ LIMIT 1;
     }
 
     // count total number of recipes
-    public function countAllByUsingSearch() {
+    public function countAllByUsingSearch()
+    {
 
         $this->selectCount = "SELECT COUNT(DISTINCT(rc.`recipe_id`)) AS `total_rows`";
 
@@ -374,7 +393,8 @@ LIMIT 1;
     }
 
     // search by recipe name - autocomplete
-    public function getRecipeName() {
+    public function getRecipeName()
+    {
 
         $query = "SELECT `name` FROM `Recipes` WHERE name LIKE :name";
         $stmt = $this->getConnection()->prepare($query);
@@ -383,7 +403,8 @@ LIMIT 1;
         return $stmt->fetchAll();
     }
 
-    public function removeFullStopEnd($str) {
+    public function removeFullStopEnd($str)
+    {
 
         return $str[strlen($str) - 1] === '.' ? $str = substr($str, 0, -1) : $str;
     }

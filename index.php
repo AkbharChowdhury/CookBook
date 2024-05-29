@@ -3,11 +3,8 @@ $current_page = 'index';
 $page_title = 'Home - Cookbook - Get cooking today';
 require_once 'templates/header.php';
 require_once 'includes/search.inc.php';
-
-//print_r(var_dump($recipe->getIngredients(60)));
 ?>
 
-<!-- static image background -->
 <div id="home">
 	<div class="landing-text text-center text-white">
 		<h1 class="text-uppercase">CookBook</h1>
@@ -17,7 +14,6 @@ require_once 'includes/search.inc.php';
 	</div>
 </div>
 
-<!-- Two column Section -->
 <section class="pb-3" id="breakfast">
 	<div class="bg-dark">
 		<div class="container">
@@ -34,8 +30,7 @@ require_once 'includes/search.inc.php';
 		</div>
 	</div>
 </section>
-<!-- end of Two column Section -->
-<!-- Search Recipe Section-->
+
 <section id="recipe">
 	<?php $current_page = 'recipe'; ?>
 	<div class="container">
@@ -72,7 +67,7 @@ require_once 'includes/search.inc.php';
 					<div class="form-inline">
 						<label for="search" class="font-weight-bold lead text-dark p-3">Search Recipes</label>
 						<div class="input-group">
-							<input type="search" class="form-control" placeholder="Search recipe" id="search" name="s" value="<?= htmlspecialchars($_GET['s'] ?? null)  ?>" autofocus>
+							<input type="search" class="form-control" placeholder="Search recipe" id="search" name="s" value="<?= Helper::html($_GET['s'] ?? '')  ?>" autofocus>
 							<div class="input-group-append">
 								<!--Search button-->
 								<button type="submit" class="btn btn-secondary" name="search"><i class="fa fa-search"></i> </button>
@@ -94,7 +89,6 @@ require_once 'includes/search.inc.php';
 </section>
 
 
-<!-- recipe lists-->
 <section class="bg-light" id="results">
 	<div class="container pt-3">
 		<h1 class="text-primary p-2">Recipe lists</h1>
@@ -105,31 +99,8 @@ require_once 'includes/search.inc.php';
 		<div class="row">
 			<!-- display the recipes if there are any-->
 			<?php if ($total_rows > 0) : ?>
-				<?php foreach ($stmt as $row) : ?>
-					<div class="col-md-4 mb-4">
-						<div class="card shadow border-0 h-100">
-							<div class="inner">
-								<a href="recipe_details_page.php?recipe_selected_id=<?= $row['recipe_id'] ?>">
-									<img class="card-img-top recipe-image" src="<?=Helper::image($row['image'])?>" alt="<?= Helper::html($row['alt']); ?>" title="All images are used for illustrative purposes. Results may vary">
-								</a>
-							</div>
-							<div class="card-body">
-								<h4 class="card-title"><?= $row['name'] ?></h4>
-								<p class="card-text"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-stopwatch" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-										<path fill-rule="evenodd" d="M6 .5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1H9v1.07A7.001 7.001 0 0 1 8 16 7 7 0 0 1 7 2.07V1h-.5A.5.5 0 0 1 6 .5zM8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3zm0 2.1a.5.5 0 0 1 .5.5V9a.5.5 0 0 1-.5.5H4.5a.5.5 0 0 1 0-1h3V5.6a.5.5 0 0 1 .5-.5z" />
-									</svg> <?= $row['prep_time'] ?>
-									<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-people-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-										<path fill-rule="evenodd" d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
-									</svg> <?= $row['servings'] ?>
-								</p>
-								<p class="card-text">By <strong><?= Helper::html($row['author_name']) ?></strong></p>
-								<p class="card-text">Category <strong><?= Helper::html($row['category_name']) ?></strong></p>
-								<p class="card-text"><?= $row['description'] ?></p>
-								<a href="recipe_details_page.php?recipe_selected_id=<?= Helper::html($row['recipe_id']) ?>" role="button" class="btn btn-info">View</a>
-							</div>
-						</div>
-					</div>
-				<?php endforeach; ?>
+            <?php require_once  'includes/recipe.inc.php';?>
+
 		</div> <!-- container-->
 	<?php else : ?>
 		<div class="container-fluid">
@@ -145,7 +116,6 @@ require_once 'includes/search.inc.php';
 	<?php endif; ?>
 	<div class="col-lg-12">
 		<div class="row justify-content-center">
-			<!-- Paging -->
 			<?php require_once 'templates/paging.inc.php'; ?>
 		</div>
 	</div>

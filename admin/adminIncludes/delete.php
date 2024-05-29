@@ -1,7 +1,5 @@
 <?php
-// interface path
 require_once '../../includes/interface-autoload.php';
-// class autoload path
 require_once '../../includes/class-autoload.php';
 
 $recipe = ManageRecipe::getInstance();

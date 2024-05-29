@@ -1,7 +1,4 @@
 <?php
-// default password passwordijdb
-// query is UPDATE `Author` SET `password` = MD5('passwordijdb') 
-// enter 'password' in field
 $current_page = 'login';
 $page_title = 'login';
 require_once 'templates/header.php';

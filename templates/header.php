@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 showErrors();
-define('PAGES', ['index', 'about', 'contact', 'recipe', 'login', 'register', 'profile']);
+const PAGES = ['index', 'about', 'contact', 'recipe', 'login', 'register', 'profile'];
 define('HEADER_PATH', dirname(__FILE__, 2) . DIRECTORY_SEPARATOR . 'includes/header.inc.php');
 require_once HEADER_PATH;
 
