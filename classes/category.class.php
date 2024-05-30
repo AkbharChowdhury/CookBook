@@ -36,7 +36,6 @@ class Category extends Database {
     }
 
     public function getCategoryID() {
-        // query to select retrieve a single category 
         $sql = "SELECT * FROM `Categories` WHERE `category_id` = :category_id";
         $stmt = $this->getConnection()->prepare($sql);
         $stmt->execute($this->data);

@@ -9,13 +9,12 @@ if (isset($_GET['editAuthor'])) {
     Helper::validateAuthorID($login);
     $author->addData('author_id', $_GET['editAuthor']);
     foreach ($author->getAuthorID() as $row) {
-        // store values in an array
-        define("AUTHOR", array(
+        define("AUTHOR", [
             'author_id' => $row['author_id'],
             'firstname' => $row['firstname'],
             'lastname' => $row['lastname'],
             'email' => $row['email'],
-        ));
+        ]);
     }
 }
 

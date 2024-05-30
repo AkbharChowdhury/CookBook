@@ -17,7 +17,7 @@ final class Helper
     }
 
     private static $directory = false; // default directory is false
-    private const SEARCH_PAGES = array('index', 'recipe');
+    private const SEARCH_PAGES =  ['index', 'recipe'];
 
     private static $currentPage = null; // navbar active link
 

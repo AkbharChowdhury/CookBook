@@ -5,17 +5,14 @@ Breadcrumb::getInstanceSubDirectory($current_page, 'manage_categories.php', null
 
 $category = Category::getInstance();
 
-//check if recipe_id is found
 if (isset($_GET['editCategory'])) {
 
     $category->addData('category_id',$_GET['editCategory']);
-    // loop through table
     foreach ($category->getCategoryID() as $row) {
-        // store values in an array
-        $category_info = array(
+        $category_info = [
             'category_id' => $row['category_id'],
             'category_name' => $row['category_name'],
-        );
+        ];
     }
 }
 

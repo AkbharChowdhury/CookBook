@@ -12,16 +12,6 @@ function getID()
 
 }
 
-//$info = $recipe->getRecipeDetails($id);
-//print_r(var_dump($info));
-//$car = array("brand"=>"Ford", "model"=>"Mustang", "year"=>1964);
-//echo $info[0]["alt"];
-//foreach ($info as $item) {
-//    echo '<h1>'.$item['description'].'</h1>';
-//
-//}
-//print_r(var_dump( $info));
-//die();
 
 
 //check if recipe_id is found
