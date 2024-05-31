@@ -3,7 +3,6 @@
 $current_page = 'register';
 $page_title = 'Create account';
 require_once 'templates/header.php';
-//code logic
 require_once 'includes/class-autoload.php';
 require_once 'includes/register.inc.php';
 
@@ -22,11 +21,14 @@ require_once 'includes/register.inc.php';
                             <h3 class="mb-0">Create Account</h3>
                         </div>
                         <div class="card-body">
-                            <form action="" method="post" id="registerForm" class="needs-validation" novalidate autocomplete="off">
+                            <form action="" method="post" id="registerForm" class="needs-validation" novalidate
+                                  autocomplete="off">
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="firstname">Firstname</label>
-                                        <input type="text" class="form-control" name="firstname" id="firstname" maxlength="50" placeholder="firstname" value="<?= Helper::html($_POST['firstname'] ?? ''); ?>" required>
+                                        <input type="text" class="form-control" name="firstname" id="firstname"
+                                               maxlength="50" placeholder="firstname"
+                                               value="<?= Helper::html($_POST['firstname'] ?? ''); ?>" required>
                                         <div class="col-md-12">
                                             <small class="form-text text-danger">
                                                 <?= $errors['firstname'] ?? '' ?>
@@ -38,7 +40,9 @@ require_once 'includes/register.inc.php';
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="lastname">Lastname</label>
-                                        <input type="text" class="form-control" name="lastname" id="lastname" maxlength="50" placeholder="lastname" value="<?= Helper::html($_POST['lastname'] ?? ''); ?>" required>
+                                        <input type="text" class="form-control" name="lastname" id="lastname"
+                                               maxlength="50" placeholder="lastname"
+                                               value="<?= Helper::html($_POST['lastname'] ?? ''); ?>" required>
                                         <div class="col-md-12">
                                             <small class="form-text text-danger"> <?= $errors['lastname'] ?? '' ?> </small>
                                             <!-- JS Error message-->
@@ -50,7 +54,9 @@ require_once 'includes/register.inc.php';
 
                                 <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input type="email" class="form-control" name="email" id="email" maxlength="100" placeholder="email" value="<?= Helper::html($_POST['email'] ?? ''); ?>" required>
+                                    <input type="email" class="form-control" name="email" id="email" maxlength="100"
+                                           placeholder="email" value="<?= Helper::html($_POST['email'] ?? ''); ?>"
+                                           required>
                                     <div class="col-md-12">
                                         <small class="form-text text-danger"><?= $errors['email'] ?? '' ?></small>
                                     </div>
@@ -61,19 +67,30 @@ require_once 'includes/register.inc.php';
 
                                 <div class="form-group">
                                     <label for="password">Password</label>
-                                    <input type="password" class="form-control" name="password" id="password" maxlength="100" placeholder="password" value="<?= Helper::html($_POST['password'] ?? ''); ?>" required>
+                                    <input type="password" class="form-control" name="password" id="password"
+                                           maxlength="100" placeholder="password"
+                                           value="<?= Helper::html($_POST['password'] ?? ''); ?>" required>
                                     <small id="passwordHelpBlock" class="form-text text-muted">
-                                        Your password must be at least 8 characters long, contain 1 upper case letter, a number, and a special character.
+                                        Your password must be at least 8 characters long, contain 1 upper case letter, a
+                                        number, and a special character.
                                     </small>
                                     <!-- JS Error message-->
                                     <small id="passwordErrorMessage" class="form-text text-danger"></small>
                                     <div id="password-criteria">
                                         <ul class="fa-ul">
                                             <li><span class="fa-li"><i id="number"></i></span>contains 1 number</li>
-                                            <li><span class="fa-li"><i id="uppercase"></i></span>contains 1 upper case char</li>
-                                            <li><span class="fa-li"><i id="lowercase"></i></span>contains 1 lower case char</li>
-                                            <li><span class="fa-li"><i id="specialChar"></i></span>contains 1 special char</li>
-                                            <li><span class="fa-li"><i id="minLength"></i></span>is at least 8 chars long</li>
+                                            <li><span class="fa-li"><i id="uppercase"></i></span>contains 1 upper case
+                                                char
+                                            </li>
+                                            <li><span class="fa-li"><i id="lowercase"></i></span>contains 1 lower case
+                                                char
+                                            </li>
+                                            <li><span class="fa-li"><i id="specialChar"></i></span>contains 1 special
+                                                char
+                                            </li>
+                                            <li><span class="fa-li"><i id="minLength"></i></span>is at least 8 chars
+                                                long
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="progress mt-2">
@@ -91,7 +108,9 @@ require_once 'includes/register.inc.php';
                                 </div>
                                 <div class="form-group">
                                     <label for="verification_code">Verification code</label>
-                                    <input type="text" maxlength="5" class="form-control" name="verification_code" id="verification_code" maxlength="10" placeholder="verification code" value="<?= Helper::html($_POST['verification_code'] ?? ''); ?>" required>
+                                    <input type="text" maxlength="5" class="form-control" name="verification_code"
+                                           id="verification_code" maxlength="10" placeholder="verification code"
+                                           value="<?= Helper::html($_POST['verification_code'] ?? ''); ?>" required>
                                     <div class="col-md-12">
                                         <small class="form-text text-danger"><?= $errors['verification_code'] ?? '' ?></small>
                                         <!-- JS Error message-->
@@ -100,8 +119,10 @@ require_once 'includes/register.inc.php';
                                     <div class="invalid-feedback">verification code is required</div>
                                 </div>
                                 <div class="form-group">
-                                    <img src="includes/captcha.inc.php" alt="caption" id="img-captcha">
-                                    <p class="text-muted">Can't read captcha <button type="button" class="btn btn-link" id="refresh">Refresh</button></p>
+                                    <img src="includes/captcha.inc.php" alt="captcha image" id="img-captcha">
+                                    <p class="text-muted">Can't read captcha
+                                        <button type="button" class="btn btn-link" id="refresh">Refresh</button>
+                                    </p>
                                 </div>
                                 <input class="btn btn-dark btn-lg" id="register" type="submit" value="Create Account">
                             </form>
@@ -120,3 +141,6 @@ require_once 'includes/register.inc.php';
 
 <script src="js/validate-register.js"></script>
 <script src="js/check-duplicate-email.js"></script>
+<script>
+    document.querySelector('#refresh').addEventListener('click', () => document.querySelector('#img-captcha').setAttribute('src', 'includes/captcha.inc.php'));
+</script>

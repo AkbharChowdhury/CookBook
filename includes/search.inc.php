@@ -7,28 +7,24 @@ require_once 'templates/header.php';
 // instantiate recipe class
 $recipe = Recipe::getInstance();
 
-// core.php holds pagination variables
-require_once 'includes/core.inc.php';
+$page = $_GET['page'] ?? 1;
+$records_per_page = $recipe->getRecordsPerPage();
+// calculate for the query LIMIT clause
+$from_record_num = ($records_per_page * $page) - $records_per_page;
 
 // count total rows - used for pagination
 $total_rows = $recipe->getTotalRecipes();
 
 // get search results and trim it to remove white spaces
 $search_term = isset($_GET['s']) ? trim(Helper::html($_GET['s'])) : '';
+
 // remove full stop at the end of text
-$search_term = !empty($search_term) ? $recipe->removeFullStopEnd($search_term) : null;
+$search_term = !empty($search_term) ? $recipe->removeFullStopEnd($search_term) : '';
 
 
-/* ----------------------- Select drop down -------------------------------- */
-// get selected author 
 $selected_author = $_GET['author_id'] ?? '';
-
-// get selected category 
 $selected_category = $_GET['category_id'] ?? '';
 
-print_r($selected_category);
-
-/* -------------------------------------------------------------------------- */
 
 // store session variables for recipe details page - home link on breadcrumb menu
 $_SESSION['author'] = Helper::html($selected_author);
@@ -36,7 +32,6 @@ $_SESSION['category'] = Helper::html($selected_category);
 $_SESSION['search'] = $search_term;
 $_SESSION['page'] = $page;
 
-// set recipe object properties
 $recipe->setPageNumber($page)
 ->setAuthorID($selected_author)
 ->setCategoryID($selected_category)
