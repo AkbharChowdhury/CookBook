@@ -14,7 +14,6 @@ if(in_array($current_page, PAGES)){
     Helper::setDirectory(true);
 }
 
-// admin pages
 if(in_array($current_page, ADMIN_PAGES)){
     $_SESSION['page_accessed'] = true;
     define('Helper_Class_Path', dirname(__FILE__, 2) . DIRECTORY_SEPARATOR . 'classes/helper.class.php');    
@@ -24,36 +23,30 @@ if(in_array($current_page, ADMIN_PAGES)){
     Helper::currentPage($current_page);
 }
 
-// Site Administrator - categories
-if($current_page === 'manage_categories'){
-    $login = Login::getInstance();
-    if(!$login->userHasRole('Site Administrator')){
-        $errorMsg = Helper::setErrorMessage('Site Administrator');
-        include_once ERROR_PAGE;
-        exit;
+
+
+function authenticateRoles(){
+    $roles = [
+        'Site Administrator' => 'manage_categories',
+        'Account Administrator' => 'manage_authors',
+        'Content Editor' => 'manage_recipe',
+    ];
+    foreach ($roles as $role => $page) {
+        if ($current_page === $page) {
+            $login = Login::getInstance();
+            if (!$login->userHasRole($role)) {
+                $errorMsg = Helper::setErrorMessage($role);
+                include_once ERROR_PAGE;
+                exit;
+            }
+        }
     }
 }
 
-// Account Administrator - authors
-if($current_page === 'manage_authors'){
-    $login = Login::getInstance();
-    if(!$login->userHasRole('Account Administrator')){
-        $errorMsg = Helper::setErrorMessage('Account Administrator');
-        include_once ERROR_PAGE;
-        exit;
 
-    }
-}
+authenticateRoles();
 
-// Content Editor - recipes
-if($current_page === 'manage_recipe'){
-    $login = Login::getInstance();
-    if(!$login->userHasRole('Content Editor')){
-        $errorMsg = Helper::setErrorMessage('Content Editor');
-        include_once ERROR_PAGE;
-        exit;
-    }
-}
+
 
 //check if the recipe button is clicked
 isset($_GET['recipe']) ? $current_page = 'recipe' : null;
