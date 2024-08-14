@@ -1,8 +1,9 @@
 <?php
 declare(strict_types=1);
-//sessions are a way of storing variables and accessing them through multiple pages
 session_start();
-define('ADMIN_PAGES', array('admin_home','manage_authors','manage_recipe','manage_categories' ,'mailing_lists'));
+const ADMIN_PAGES = ['admin_home', 'manage_authors', 'manage_recipe', 'manage_categories', 'mailing_lists'];
+const PAGES = ['index', 'about', 'contact', 'recipe', 'login', 'register', 'profile'];
+
 define('ERROR_PAGE', dirname(__FILE__, 2) . DIRECTORY_SEPARATOR . 'includes/error.inc.php');    
 
 
