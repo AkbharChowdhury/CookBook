@@ -23,15 +23,34 @@ use Dotenv\Dotenv as Dotenv;
 
     public function getConnection() {
         $this->loadENV();
-        
-        $username = $_ENV['USERNAME'] ?? 'no username';
-        $password = $_ENV['PASSWORD'] ?? 'no username';
-        $host = $_ENV['HOST'] ?? 'no host';
-        $databaseName = $_ENV['DB_NAME'];
-        $charset = $_ENV['CHARSET'] ?? 'no CHARSET';
+ 
 
-        $dsn = 'mysql:host=' . $host . ';dbname=' . $databaseName . ';' . $charset;
-        $this->con = new PDO($dsn, $username, $password);
+        // // print_r($username);
+        
+        // $password = $_ENV['PASSWORD'] ?? 'the_secure_password';
+        // $host = $_ENV['HOST'] ?? 'localhost';
+        // $databaseName = $_ENV['DB_NAME'] ?? 'cookbook';
+        // $charset = $_ENV['CHARSET'] ?? 'utf8mb4';
+
+        // $dsn = 'mysql:host=' . $host . ';dbname=' . $databaseName . ';' . $charset;
+
+
+// USERNAME
+        $host = $_ENV['HOST'] ?? '';
+        $user = $_ENV['USERNAME'] ?? '';
+        $pass = $_ENV['PASSWORD'] ?? '';
+        $charset = $_ENV['CHARSET'] ?? '';
+        $db   =  $_ENV['DB_NAME'] ?? '';
+
+        
+        $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+        // $options = [
+        //     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+        //     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        //     PDO::ATTR_EMULATE_PREPARES   => false,
+        // ];
+ 
+        $this->con = new PDO($dsn, $user, $pass);
         $this->con->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         return $this->con;
     }

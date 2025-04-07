@@ -6,7 +6,6 @@ const PAGES = ['index', 'about', 'contact', 'recipe', 'login', 'register', 'prof
 
 define('ERROR_PAGE', dirname(__FILE__, 2) . DIRECTORY_SEPARATOR . 'includes/error.inc.php');    
 
-
 if(in_array($current_page, PAGES)){
 
     require_once 'includes/class-autoload.php';
@@ -33,6 +32,8 @@ function authenticateRoles(){
         'Content Editor' => 'manage_recipe',
     ];
     foreach ($roles as $role => $page) {
+        $current_page  = 'index';
+
         if ($current_page === $page) {
             $login = Login::getInstance();
             if (!$login->userHasRole($role)) {

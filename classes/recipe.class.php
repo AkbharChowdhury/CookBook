@@ -144,8 +144,11 @@ class Recipe extends Database implements IRecipe
     {
 
 
-        // calculate the minimum total cooking time for a category query
-        $sql = "SELECT
+        // calculate the minimum total cooking time for a category
+
+        $sql = "
+
+        SELECT
         r.name,
         c.`category_name`,
         MIN((r.`prep_time` + r.`cook_time`)) AS `total_cooking_time`
@@ -159,7 +162,6 @@ class Recipe extends Database implements IRecipe
 
         $stmt = $this->getConnection()->prepare($sql);
         $stmt->execute([':category' => '%' . $category . '%']);
-        // loop through results
         $row = $stmt->fetch();
         return $row['total_cooking_time'];
     }
@@ -270,9 +272,13 @@ LIMIT 1;
     /*     * ********** End of  check if search filters are selected ***************** */
 
     /* Search recipes in the database */
-
+    private function disableGroupBy(){
+        return "SET sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''));";
+    }
     public function fetchRecipes()
     {
+
+        // $this->select = $this->disableGroupBy();
         $this->select = "SELECT
         rc.`category_id`,
         r.`recipe_id`,
@@ -301,9 +307,7 @@ LIMIT 1;
 
         $this->where = ' WHERE TRUE';
 
-        // Check if an author is selected
         $this->authorSelected(" AND r.`author_id` = :author_id", $this->where);
-        // Check if text is entered
         $this->searchTerm(" AND r.`name` LIKE :name", $this->where);
 
         $this->where .= ' GROUP BY r.`name`';
@@ -317,6 +321,9 @@ LIMIT 1;
         $stmt = $this->getConnection()->prepare($this->combinedSearch);
         $stmt->execute($this->placeholders);
         return $stmt->fetchAll();
+
+
+        
     }
 
     // if no search results are found then show the list of all the recipes for the selected author
