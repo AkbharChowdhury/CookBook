@@ -2,9 +2,6 @@
 /**
  * @author Akbhar Chowdhury
  * @since Date created 21/09/2020
- * Notes
- * abstract classes cannot be instantiated 
- * protected access modifier method can only be accessed within the class and by classes derived from that class
  */
 
 use Dotenv\Dotenv as Dotenv;
@@ -23,33 +20,12 @@ use Dotenv\Dotenv as Dotenv;
 
     public function getConnection() {
         $this->loadENV();
- 
-
-        // // print_r($username);
-        
-        // $password = $_ENV['PASSWORD'] ?? 'the_secure_password';
-        // $host = $_ENV['HOST'] ?? 'localhost';
-        // $databaseName = $_ENV['DB_NAME'] ?? 'cookbook';
-        // $charset = $_ENV['CHARSET'] ?? 'utf8mb4';
-
-        // $dsn = 'mysql:host=' . $host . ';dbname=' . $databaseName . ';' . $charset;
-
-
-// USERNAME
         $host = $_ENV['HOST'] ?? '';
         $user = $_ENV['USERNAME'] ?? '';
         $pass = $_ENV['PASSWORD'] ?? '';
-        $charset = $_ENV['CHARSET'] ?? '';
+        $charset = 'utf8mb4';
         $db   =  $_ENV['DB_NAME'] ?? '';
-
-        
-        $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-        // $options = [
-        //     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-        //     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        //     PDO::ATTR_EMULATE_PREPARES   => false,
-        // ];
- 
+        $dsn = "mysql:host=$host;dbname=$db;charset=$charset"; 
         $this->con = new PDO($dsn, $user, $pass);
         $this->con->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         return $this->con;
