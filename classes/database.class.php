@@ -20,12 +20,14 @@ use Dotenv\Dotenv as Dotenv;
 
     public function getConnection() {
         $this->loadENV();
+
         $host = $_ENV['HOST'] ?? '';
         $user = $_ENV['USERNAME'] ?? '';
         $pass = $_ENV['PASSWORD'] ?? '';
         $charset = 'utf8mb4';
-        $db   =  $_ENV['DB_NAME'] ?? '';
+        $db = $_ENV['DB_NAME'] ?? '';
         $dsn = "mysql:host=$host;dbname=$db;charset=$charset"; 
+        
         $this->con = new PDO($dsn, $user, $pass);
         $this->con->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         return $this->con;

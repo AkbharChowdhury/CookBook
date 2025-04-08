@@ -3,15 +3,15 @@
 class Recipe extends Database implements IRecipe
 {
 
-    //class properties
-    protected $recipeName,
+    private
+     $recipeName,
         $pageNumber,
         $authorID, $categoryID,
         $searchTerm;
     // search recipes from database properties
     private $select, $from, $where, $combinedSearch,
-        // construct query
-        $placeholders = [];
+    // construct query
+    $placeholders = [];
     // count recipes from database properties
     private $selectCount, $fromCount, $whereCount, $combinedSearchCount;
 
@@ -20,7 +20,6 @@ class Recipe extends Database implements IRecipe
     private $fromRecordNum; // set limit 
 
 
-    // setters
     public function setRecipeName($recipeName)
     {
 
@@ -72,7 +71,6 @@ class Recipe extends Database implements IRecipe
         return $this->combinedSearch;
     }
 
-    // Hold the class instance.
     private static $instance = null;
 
     private function __construct()
@@ -105,7 +103,7 @@ class Recipe extends Database implements IRecipe
     {
 
         // select unique categories from recipes table
-        $sql = "SELECT DISTINCT c.`category_id`, c.`category_name` FROM `RecipeCategory` rc JOIN `Categories` c ON rc.`category_id` = c.`category_id`";
+        $sql = "SELECT DISTINCT c.`category_id`, c.`category_name` FROM `RecipeCategory` rc JOIN `Categories` c USING (category_id)";
         $stmt = $this->getConnection()->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll();
@@ -145,10 +143,7 @@ class Recipe extends Database implements IRecipe
 
 
         // calculate the minimum total cooking time for a category
-
-        $sql = "
-
-        SELECT
+        $sql ='SELECT
         r.name,
         c.`category_name`,
         MIN((r.`prep_time` + r.`cook_time`)) AS `total_cooking_time`
@@ -158,7 +153,9 @@ class Recipe extends Database implements IRecipe
         rc.`recipe_id` = r.`recipe_id`
     JOIN `Categories` c ON
         c.`category_id` = rc.`category_id`
-        WHERE c.`category_name` LIKE :category LIMIT 1";
+        WHERE c.`category_name` LIKE :category LIMIT 1';
+
+       
 
         $stmt = $this->getConnection()->prepare($sql);
         $stmt->execute([':category' => '%' . $category . '%']);
@@ -168,7 +165,6 @@ class Recipe extends Database implements IRecipe
 
     public function getRecipeDetails($recipeID)
     {
-        // query to select
         $sql = "
        SELECT
     r.`name`,
@@ -278,7 +274,6 @@ LIMIT 1;
     public function fetchRecipes()
     {
 
-        // $this->select = $this->disableGroupBy();
         $this->select = "SELECT
         rc.`category_id`,
         r.`recipe_id`,
@@ -314,7 +309,7 @@ LIMIT 1;
         $this->categorySelected(" HAVING `categories` LIKE :category_id", $this->where);
 
         // randomize query and set page limit
-        $this->where .= " ORDER BY  rand({$this->getPageNumber()}) LIMIT {$this->fromRecordNum}," . self::RECORDS_PER_PAGE;
+        $this->where .= " ORDER BY RAND({$this->getPageNumber()}) LIMIT {$this->fromRecordNum}," . self::RECORDS_PER_PAGE;
 
         //resulting query
         $this->combinedSearch = $this->select . $this->from . $this->where;
@@ -368,14 +363,11 @@ LIMIT 1;
 
         $this->fromCount .= " FROM `RecipeCategory` rc";
 
-        $this->fromCount .= " JOIN Recipes r ON
-        rc.`recipe_id` = r.`recipe_id`";
+        $this->fromCount .= " JOIN Recipes r USING (recipe_id)";
 
-        $this->fromCount .= " JOIN Author a ON
-        r.`author_id` = a.`author_id`";
+        $this->fromCount .= " JOIN Author a USING (author_id)";
 
-        $this->fromCount .= " JOIN Categories c ON
-        rc.`category_id` = c.`category_id`";
+        $this->fromCount .= " JOIN Categories c USING (category_id)";
 
         $this->fromCount .= ' WHERE TRUE';
 

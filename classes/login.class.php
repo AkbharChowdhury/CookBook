@@ -26,7 +26,6 @@ class Login extends Database
         return $stmt->fetchColumn();
     }
 
-    // get logged in author recipe id
     public function getAuthorRecipeID($authorID)
     {
         $sql = "SELECT `recipe_id` FROM `Recipes` WHERE `author_id` = :authorID";
@@ -36,7 +35,6 @@ class Login extends Database
         return $stmt->fetchAll();
     }
 
-    // get author login credentials
     public function databaseContainsAuthor($email, $password)
     {
         $sql = "SELECT COUNT(*) AS `author_found` FROM `Author` WHERE `email` = :email AND `password` = :password";

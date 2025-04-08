@@ -6,11 +6,6 @@
  */
 
 class Pagination {
-    private $totalPages,
-        $page,
-        $pageURL,
-        $category,
-        $author; 
     
     private static $instance = null;
 
@@ -20,12 +15,16 @@ class Pagination {
         return self::$instance === null  ? self::$instance = new Pagination($totalPages, $page, $pageURL, $author, $category) : self::$instance;
 
       }
-    private function __construct($totalPages,$page,$pageURL,$author,$category){
-        $this->totalPages = $totalPages;
-        $this->page = $page;
-        $this->pageURL = $pageURL;
-        $this->author = $author;
-        $this->category = $category;
+
+
+    private function __construct(
+        private $totalPages,
+        private $page,
+        private $pageURL,
+        private $category,
+        private $author,
+
+    ) {
         $this->createPagination();
     }
    
@@ -33,13 +32,6 @@ class Pagination {
 
         echo '<nav aria-label="pagination-recipe">';
         echo '<ul class ="pagination justify-content-center">';
-
-        /*// button for first page
-        if($this->page>1){
-            echo "<style>.pagination .next.disabled { display:none; } background: blue</style>            ";
-            //echo "<script>alert('s')</script>";
-            echo "<li class='page-item'><a class='page-link' href='{$this->pageURL}' title='Go to the first page.'>First</a></li>";
-        }*/
 
         // range of links to show = totalPages
         // display links to 'range of pages' around 'current page'
@@ -61,14 +53,7 @@ class Pagination {
 
             }
         }
-        /*
-        
-    // button for last page
-    if($this->page<$this->totalPages){
-        echo "<li class='page-item'><a class='page-link' href='" .$this->pageURL . "page={$this->totalPages}' title='Last page is {$this->totalPages}.'>Last Page</a></li>";
     
-    }
-    */
         echo '</ul>';
         echo '</nav>';
     }
