@@ -142,18 +142,23 @@ class Recipe extends Database implements IRecipe
     {
 
 
-        // calculate the minimum total cooking time for a category
-        $sql ='SELECT
-        r.name,
-        c.`category_name`,
-        MIN((r.`prep_time` + r.`cook_time`)) AS `total_cooking_time`
-    FROM
-        `RecipeCategory` rc
-    JOIN `Recipes` r ON
-        rc.`recipe_id` = r.`recipe_id`
-    JOIN `Categories` c ON
-        c.`category_id` = rc.`category_id`
-        WHERE c.`category_name` LIKE :category LIMIT 1';
+
+        $sql = ' WITH cte_category_time AS(
+                    SELECT
+                        MIN((r.`prep_time` + r.`cook_time`)) AS `total_cooking_time`
+                    FROM
+                        `RecipeCategory` rc
+                    JOIN `Recipes` r USING(recipe_id)
+                    JOIN `Categories` c USING(category_id)
+                    WHERE
+                        c.`category_name` LIKE :category
+                    GROUP BY
+                        c.`category_name`)
+        
+                SELECT
+                    total_cooking_time
+                FROM
+                    cte_category_time';
 
        
 
